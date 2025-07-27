@@ -1,27 +1,31 @@
 ﻿using AutoMapper;
-using YourNotes.Communication.Request;
+using YourNotes.Application.Services.Crypt;
+using YourNotes.Communication.Requests.User;
 using YourNotes.Communication.Responses;
+using YourNotes.Communication.Responses.User;
 using YourNotes.Domain.Interfaces.Repositories;
 using YourNotes.Domain.Interfaces.UseCases;
 using YourNotes.Exception;
 using YourNotes.Exception.Exceptions;
+using YourNotes.Persistence.Autentication.Tokens.Access.Generator;
 
 namespace YourNotes.Application.User.RegisterUser
 {
     public class RegisterUserUseCase : IRegisterUserUseCase
     {
-        private readonly IUserRespository _userRespository;
-        private readonly IBaseRepository<YourNotes.Domain.Entities.User> _repository;
         private readonly IUnitOfWork _uof;
         private readonly IMapper _mapper;
+        public readonly JwtTokenGenerator _tokenGenerator;
+        public readonly PasswordEncrypter _passwordEncrypter;
 
 
-        public RegisterUserUseCase(IUserRespository userRespository, IBaseRepository<YourNotes.Domain.Entities.User> repository, IMapper mapper, IUnitOfWork uof)
+        public RegisterUserUseCase(IMapper mapper, IUnitOfWork uof, PasswordEncrypter passwordEncrypter, JwtTokenGenerator tokenGenerator)
         {
-            _userRespository = userRespository;
-            _repository = repository;
+
             _mapper = mapper;
             _uof = uof;
+            _passwordEncrypter = passwordEncrypter;
+            _tokenGenerator = tokenGenerator;
         }
         public async Task<ResponseRegisterUser> Execute(RequestRegisterUser request)
         {
@@ -32,14 +36,18 @@ namespace YourNotes.Application.User.RegisterUser
             //CADASTRAR USUARIO
 
             var user = _mapper.Map<YourNotes.Domain.Entities.User>(request);
-            var id = await _repository.CreateAsync(user);
+
+            user.Password = _passwordEncrypter.Encrypter(user.Password);
+            var id = await _uof.Users.CreateAsync(user);
 
 
             await _uof.Commit();
             //RETORNAR USER
 
+            var token = _tokenGenerator.GenerationToken(id);
 
-            return new ResponseRegisterUser(id);
+
+            return new ResponseRegisterUser(id, new Token(token));
         }
 
         public async Task Validate(RequestRegisterUser request)
@@ -62,14 +70,12 @@ namespace YourNotes.Application.User.RegisterUser
                 throw new OnValidationException(error);
             }
 
-            if (await _userRespository.UserNameExistsAsync(request.UserName))
+            if (await _uof.Users.UserNameExistsAsync(request.UserName))
                 throw new OnValidationException(YourNotesExceptionResource.USERNAME_ALREADY_EXISTS);
 
 
-
-            if (await _userRespository.EmailExistsAsync(request.Email))
+            if (await _uof.Users.EmailExistsAsync(request.Email))
                 throw new OnValidationException(YourNotesExceptionResource.EMAIL_ALREADY_EXISTS);
-
 
 
         }

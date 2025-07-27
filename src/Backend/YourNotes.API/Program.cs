@@ -12,7 +12,7 @@ builder.Services.AddControllers(options =>
 });
 
 builder.Services.AddPersistenceDependencyInjection(builder.Configuration);
-builder.Services.AddApplicationDependencyInjection();
+builder.Services.AddApplicationDependencyInjection(builder.Configuration);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
@@ -31,3 +31,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+public partial class Program { }

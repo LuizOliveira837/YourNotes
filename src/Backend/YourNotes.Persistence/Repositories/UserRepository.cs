@@ -5,7 +5,7 @@ using YourNotes.Persistence.Data;
 
 namespace YourNotes.Persistence.Repositories
 {
-    public class UserRepository : IBaseRepository<User>, IUserRespository
+    public class UserRepository : IUserRepository
     {
         private readonly YourNotesDbContext _context;
 
@@ -31,11 +31,11 @@ namespace YourNotes.Persistence.Repositories
             return user.Id;
         }
 
-        public async Task<bool> EmailExistsAsync(string email) => await _context.Users.AnyAsync(u => u.Email == email);
+        public async Task<bool> EmailExistsAsync(string email) => await _context.Users.AsNoTracking().AnyAsync(u => u.Email == email);
 
         public async Task<User?> GetAsync(Guid id) => await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
 
-        public async Task<bool> UserNameExistsAsync(string userName) => await _context.Users.AnyAsync(x => x.UserName == userName);
+        public async Task<bool> UserNameExistsAsync(string userName) => await _context.Users.AsNoTracking().AnyAsync(x => x.UserName == userName);
     }
 }
 

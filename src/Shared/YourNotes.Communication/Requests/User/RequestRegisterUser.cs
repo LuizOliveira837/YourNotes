@@ -1,4 +1,4 @@
-﻿namespace YourNotes.Communication.Request
+﻿namespace YourNotes.Communication.Requests.User
 {
     public class RequestRegisterUser
     {

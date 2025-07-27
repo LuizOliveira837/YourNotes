@@ -1,5 +1,5 @@
-﻿using YourNotes.Communication.Request;
-using YourNotes.Communication.Responses;
+﻿using YourNotes.Communication.Requests.User;
+using YourNotes.Communication.Responses.User;
 
 namespace YourNotes.Domain.Interfaces.UseCases
 {
