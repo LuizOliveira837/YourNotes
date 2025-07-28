@@ -1,10 +1,11 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using YourNotes.Domain.Security;
 
 namespace YourNotes.Persistence.Autentication.Tokens.Access.Generator
 {
-    public class JwtTokenGenerator : JwtTokenHandler
+    public class JwtTokenGenerator : JwtTokenHandler, IJwtTokenGenerator
     {
         private readonly string _secretKey;
         private readonly int _expirationTimeInMinutes;
@@ -22,10 +23,10 @@ namespace YourNotes.Persistence.Autentication.Tokens.Access.Generator
 
             var descriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
+                Subject = new ClaimsIdentity(
+                [
                     new(ClaimTypes.Sid, id.ToString()),
-                }),
+                ]),
                 Expires = DateTime.UtcNow.AddMinutes(_expirationTimeInMinutes),
                 SigningCredentials = new SigningCredentials(SecurityKey(_secretKey), SecurityAlgorithms.HmacSha256Signature)
             };

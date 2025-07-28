@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using YourNotes.Application.Services.Crypt;
 using YourNotes.Application.Services.Mapper;
+using YourNotes.Application.User.GetUserById;
 using YourNotes.Application.User.RegisterUser;
 using YourNotes.Application.User.UpdateUserName;
 using YourNotes.Domain.Interfaces.Repositories;
@@ -29,13 +30,16 @@ namespace YourNotes.Application
         {
             service
               .AddScoped<IRegisterUserUseCase, RegisterUserUseCase>()
-              .AddScoped<IUpdateUserNameUseCase, UpdateUserNameUseCase>();
+              .AddScoped<IUpdateUserNameUseCase, UpdateUserNameUseCase>()
+              .AddScoped<IGetUserByIdUseCase, GetUserByIdUseCase>();
+
+
         }
 
         public static void AddRepositories(this IServiceCollection service)
         {
             service
-                .AddScoped<Domain.Interfaces.Repositories.IBaseRepository<YourNotes.Domain.Entities.User>, UserRepository>()
+                .AddScoped<IBaseRepository<YourNotes.Domain.Entities.User>, UserRepository>()
                 .AddScoped<IUserRepository, UserRepository>()
                 .AddScoped<IUnitOfWork, UnitOfWork>();
 

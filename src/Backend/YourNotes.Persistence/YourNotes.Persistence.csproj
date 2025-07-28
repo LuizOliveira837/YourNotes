@@ -24,8 +24,4 @@
     <ProjectReference Include="..\YourNotes.Domain\YourNotes.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Autentication\Tokens\Access\Validator\" />
-  </ItemGroup>
-
 </Project>

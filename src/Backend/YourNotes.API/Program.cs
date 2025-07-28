@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using YourNotes.API.Filters;
 using YourNotes.Application;
 using YourNotes.Persistence;

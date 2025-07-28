@@ -17,7 +17,6 @@ namespace YourNotes.Application.User.UpdateUserName
         }
         public async Task<ResponseUpdateUserName> Execute(Guid id, RequestUpdateUserName request)
         {
-
             //mapear
 
             var user = await _uof.Users.GetAsync(id);
@@ -37,11 +36,9 @@ namespace YourNotes.Application.User.UpdateUserName
             await _uof
                 .Commit();
 
-
             //retornar
 
             return new ResponseUpdateUserName(user.UserName);
-
 
         }
 

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using YourNotes.Communication.Requests.User;
+using YourNotes.Communication.Responses;
 using YourNotes.Communication.Responses.User;
 
 namespace YourNotes.Application.Services.Mapper
@@ -10,6 +11,7 @@ namespace YourNotes.Application.Services.Mapper
         {
             CreateMap<RequestRegisterUser, Domain.Entities.User>();
             CreateMap<Domain.Entities.User, ResponseRegisterUser>();
+            CreateMap<Domain.Entities.User, ResponseGetUser>();
         }
     }
 }

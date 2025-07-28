@@ -115,6 +115,15 @@ namespace YourNotes.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a User Without Authorization.
+        /// </summary>
+        public static string USER_WITHOUT_AUTHORIZATION {
+            get {
+                return ResourceManager.GetString("USER_WITHOUT_AUTHORIZATION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a The username already exists.
         /// </summary>
         public static string USERNAME_ALREADY_EXISTS {

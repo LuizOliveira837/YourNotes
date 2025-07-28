@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using YourNotes.Domain.Security;
 using YourNotes.Persistence.Autentication.Tokens.Access.Generator;
+using YourNotes.Persistence.Autentication.Tokens.Access.Validator;
 using YourNotes.Persistence.Data;
 
 namespace YourNotes.Persistence
@@ -19,7 +21,11 @@ namespace YourNotes.Persistence
             var signingKey = configuration.GetSection("Jwt:SigningKey").Value!.ToString();
             var expirationTimeInMinutes = int.Parse(configuration.GetSection("Jwt:ExpirationTimeInMinutes").Value!);
             service
-                .AddScoped(opt=> new JwtTokenGenerator(signingKey, expirationTimeInMinutes));
+                .AddScoped(opt=> new JwtTokenGenerator(signingKey, expirationTimeInMinutes))
+
+
+              .AddScoped<IJwtTokenValidator, JwtTokenValidator>(opt=> new JwtTokenValidator(signingKey));
+
         }
 
         private static void AddDbContext(IServiceCollection service, IConfiguration configuration)

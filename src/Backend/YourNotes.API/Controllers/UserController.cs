@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using YourNotes.API.Attributes;
 using YourNotes.Communication.Requests.User;
+using YourNotes.Communication.Responses;
 using YourNotes.Communication.Responses.User;
 using YourNotes.Domain.Interfaces.UseCases;
 
@@ -20,10 +22,21 @@ namespace YourNotes.API.Controllers
         }
 
         [HttpPatch]
-        public async Task<IActionResult> UpdateUserName([FromServices] IUpdateUserNameUseCase useCase, [FromBody] RequestUpdateUserName request)
+        [AuthenticatedUser]
+        public async Task<IActionResult> UpdateUserName([FromServices] IUpdateUserNameUseCase useCase, [FromBody] RequestUpdateUserName request, [FromHeader] string userIdentifier)
         {
-            var id = new Guid("CF9AEE29-1264-4C84-9ED1-471162A3212C");
-            var result = await useCase.Execute(id, request);
+            var result = await useCase.Execute(new Guid(userIdentifier), request);
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [AuthenticatedUser] 
+        [ProducesResponseType(typeof(ResponseGetUser), StatusCodes.Status200OK)]
+
+        public async Task<IActionResult> GetUserById([FromServices] IGetUserByIdUseCase useCase, [FromHeader] string userIdentifier)
+        {
+            var result = await useCase.Execute(new Guid(userIdentifier));
 
             return Ok(result);
         }

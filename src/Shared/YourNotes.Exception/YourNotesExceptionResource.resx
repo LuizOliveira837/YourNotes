@@ -141,4 +141,7 @@
   <data name="USER_NOT_FOUND" xml:space="preserve">
     <value>User not found with the provided id</value>
   </data>
+  <data name="USER_WITHOUT_AUTHORIZATION" xml:space="preserve">
+    <value>User Without Authorization</value>
+  </data>
 </root>
