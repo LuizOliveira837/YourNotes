@@ -25,6 +25,13 @@ namespace WebAPI.Test
             get => _user.UserName;
         }
 
+        public Guid Id
+        {
+            get => _user.Id;
+        }
+
+
+
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             builder

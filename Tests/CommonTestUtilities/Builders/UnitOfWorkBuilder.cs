@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using YourNotes.Domain.Entities;
 using YourNotes.Domain.Interfaces.Repositories;
 
 namespace CommonTestUtilities.Builders
@@ -11,26 +12,30 @@ namespace CommonTestUtilities.Builders
     public class UnitOfWorkBuilder
     {
         public Mock<IUnitOfWork> uof = new();
-        public UnitOfWorkBuilder(Guid? id , string email = "", string userName="")
+        public UserRepositoryBuilder userRepositoryMoq = new();
+        public UnitOfWorkBuilder(User user)
         {
-            var userRepositoryMoq = new UserRepositoryBuilder();
 
-            if (!string.IsNullOrEmpty(email))
+
+            if (!string.IsNullOrEmpty(user.Email))
             {
                 userRepositoryMoq
-                    .EmailExistsAsync(email);
+                    .EmailExistsAsync(user.Email);
             }
 
-            if (id is not null)
+            if (!user.Id.Equals(Guid.Empty))
             {
                 userRepositoryMoq
-                     .CreateAsync((Guid)id);
+                     .CreateAsync(user.Id);
+
+                userRepositoryMoq
+                     .GetAsync(user);
             }
 
-            if (!string.IsNullOrEmpty(userName))
+            if (!string.IsNullOrEmpty(user.UserName))
             {
                 userRepositoryMoq
-                     .UserNameExistsAsync(userName);
+                     .UserNameExistsAsync(user.UserName);
             }
 
 

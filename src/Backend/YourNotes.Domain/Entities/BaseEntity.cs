@@ -7,6 +7,7 @@
             Id = Guid.NewGuid();
             Active = true;
             CreatedOn = DateTime.Now;
+            UpdatedOn = DateTime.Now;
         }
 
         public Guid Id { get; set; }

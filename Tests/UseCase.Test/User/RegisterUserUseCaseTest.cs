@@ -1,7 +1,7 @@
-﻿using CommonTestUtilities.Builders;
+﻿using Azure.Core;
+using CommonTestUtilities.Builders;
 using FluentAssertions;
 using YourNotes.Application.User.RegisterUser;
-using YourNotes.Communication.Responses;
 using YourNotes.Exception;
 using YourNotes.Exception.Exceptions;
 
@@ -11,9 +11,9 @@ namespace UseCases.Test.User
     {
 
 
-        public RegisterUserUseCase RegisterUserUseCaseBuild(Guid? id, string email="", string userName = "")
+        public RegisterUserUseCase RegisterUserUseCaseBuild(YourNotes.Domain.Entities.User? user)
         {
-            var uof = new UnitOfWorkBuilder(id, email, userName);
+            var uof = new UnitOfWorkBuilder(user);
             var mapper = MapperBuilder.Builder();
             var passwordEncrypter = PasswordEncrypterBuilder.Build();
             var jwtToken = JwtTokenGeneratorBuilder.Build();
@@ -28,9 +28,17 @@ namespace UseCases.Test.User
         public async Task Sucess()
         {
             //arrange
-            var id = Guid.NewGuid();
             var requestRegisterUser = RequestRegisterUserBuilder.Build();
-            var userCase = RegisterUserUseCaseBuild(id);
+            var id = Guid.NewGuid();
+
+            var user = new YourNotes.Domain.Entities.User()
+            {
+                Id = id
+            };
+
+
+
+            var userCase = RegisterUserUseCaseBuild(user);
 
             //act
 
@@ -38,11 +46,11 @@ namespace UseCases.Test.User
 
 
             //assert
-           
+
             result
                 .Id
                 .Should()
-                .Be(id);
+                .Be(user.Id);
 
 
             result
@@ -61,13 +69,16 @@ namespace UseCases.Test.User
         public async Task ERRO_Email_Already_Exists()
         {
             //arrange
-            var id = Guid.NewGuid();
             var requestRegisterUser = RequestRegisterUserBuilder.Build();
-            var userCase = RegisterUserUseCaseBuild(null, requestRegisterUser.Email);
+            var user = new YourNotes.Domain.Entities.User()
+            {
+                Email = requestRegisterUser.Email
+            };
+            var userCase = RegisterUserUseCaseBuild(user);
 
             //act
 
-             var result = async () =>  await userCase.Execute(requestRegisterUser);
+            var result = async () => await userCase.Execute(requestRegisterUser);
 
 
 
@@ -91,10 +102,12 @@ namespace UseCases.Test.User
         public async Task ERRO_UserName_Already_Exists()
         {
             //arrange
-            var id = Guid.NewGuid();
             var requestRegisterUser = RequestRegisterUserBuilder.Build();
-            var userCase = RegisterUserUseCaseBuild(null, string.Empty, requestRegisterUser.UserName);
-
+            var user = new YourNotes.Domain.Entities.User()
+            {
+                UserName = requestRegisterUser.UserName
+            };
+            var userCase = RegisterUserUseCaseBuild(user);
             //act
 
             var result = async () => await userCase.Execute(requestRegisterUser);

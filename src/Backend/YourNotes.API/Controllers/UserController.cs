@@ -13,7 +13,6 @@ namespace YourNotes.API.Controllers
     {
         [HttpPost]
         [ProducesResponseType(typeof(ResponseRegisterUser), StatusCodes.Status200OK)]
-
         public async Task<IActionResult> RegisterUser([FromServices] IRegisterUserUseCase useCase, [FromBody] RequestRegisterUser request)
         {
             var response =  await useCase.Execute(request);

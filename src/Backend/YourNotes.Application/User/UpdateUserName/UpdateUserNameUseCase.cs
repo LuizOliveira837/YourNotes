@@ -19,14 +19,10 @@ namespace YourNotes.Application.User.UpdateUserName
         {
             //mapear
 
-            var user = await _uof.Users.GetAsync(id);
-
-            if (user is null)
-            {
-                throw new OnUpdateValidation(YourNotesExceptionResource.USER_NOT_FOUND);
-            }
+            var user = await _uof.Users.GetAsync(id) ?? throw new OnValidationException(YourNotesExceptionResource.USER_NOT_FOUND);
 
             if (user.UserName == request.UserName) return new ResponseUpdateUserName(user.UserName);
+            
             //validar
             await Validate(request);
 

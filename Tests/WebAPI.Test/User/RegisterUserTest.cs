@@ -8,12 +8,12 @@ using YourNotes.Exception;
 
 namespace WebAPI.Test.User
 {
-    public class UserTest : IClassFixture<CustomWebApplicationFactory>
+    public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
     {
         public readonly HttpClient _client;
         public readonly CustomWebApplicationFactory _factory;
         public RequestRegisterUser request { get; set; }
-        public UserTest(CustomWebApplicationFactory factory)
+        public RegisterUserTest(CustomWebApplicationFactory factory)
         {
             _factory = factory;
             _client = _factory.CreateClient();

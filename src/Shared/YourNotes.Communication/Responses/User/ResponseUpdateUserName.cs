@@ -8,11 +8,11 @@ namespace YourNotes.Communication.Responses.User
 {
     public class ResponseUpdateUserName
     {
+        public string Username { get; set; } = string.Empty;
         public ResponseUpdateUserName(string username)
         {
             Username = username;
         }
 
-        public string Username { get; set; } = string.Empty;
     }
 }

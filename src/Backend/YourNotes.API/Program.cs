@@ -1,8 +1,7 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using YourNotes.API.Filters;
 using YourNotes.Application;
 using YourNotes.Persistence;
+using YourNotes.Persistence.Data.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +16,7 @@ builder.Services.AddPersistenceDependencyInjection(builder.Configuration);
 builder.Services.AddApplicationDependencyInjection(builder.Configuration);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+ 
 
 var app = builder.Build();
 
@@ -32,6 +32,9 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+MigrationDatabase.EnsureDatabase(builder.Configuration.GetConnectionString("SqlServer")!);
+
+app.Migrate();
 app.Run();
 
 

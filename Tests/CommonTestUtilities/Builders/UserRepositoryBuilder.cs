@@ -34,6 +34,15 @@ namespace CommonTestUtilities.Builders
 
         }
 
+        public void GetAsync(User user)
+        {
+            userRepository
+               .Setup(x => x.GetAsync(It.IsAny<Guid>()))
+               .Returns(Task.FromResult(user)!);
+
+
+        }
+
 
     }
 }
