@@ -1,10 +1,10 @@
-﻿using YourNotes.Communication.Responses;
+﻿using YourNotes.Communication.Responses.User;
 
 namespace YourNotes.Domain.Interfaces.UseCases
 {
     public interface IGetUserByIdUseCase
     {
-        public Task<ResponseGetUser> Execute(Guid Id);
+        public Task<ResponseGetUser> Execute();
         public void Validate(Guid Id);
     }
 }

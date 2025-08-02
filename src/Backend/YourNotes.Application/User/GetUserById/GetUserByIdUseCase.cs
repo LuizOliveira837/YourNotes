@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using YourNotes.Communication.Responses;
-using YourNotes.Domain.Interfaces.Repositories;
+using YourNotes.Communication.Responses.User;
+using YourNotes.Domain.Interfaces.Services;
 using YourNotes.Domain.Interfaces.UseCases;
 using YourNotes.Exception;
 using YourNotes.Exception.Exceptions;
@@ -9,21 +9,19 @@ namespace YourNotes.Application.User.GetUserById
 {
     public class GetUserByIdUseCase : IGetUserByIdUseCase
     {
-        private readonly IUnitOfWork _uof;
+        private readonly ILoggedUser _loggedUser;
         private readonly IMapper _mapper;
 
-        public GetUserByIdUseCase(IUnitOfWork uof, IMapper mapper)
+        public GetUserByIdUseCase(ILoggedUser loggedUser, IMapper mapper)
         {
-            _uof = uof;
+            _loggedUser = loggedUser;
             _mapper = mapper;
         }
-        public async Task<ResponseGetUser> Execute(Guid Id)
+        public async Task<ResponseGetUser> Execute()
         {
-            Validate(Id);
+            var user = await _loggedUser.User();
 
-            var user = await _uof
-                .Users
-                .GetAsync(Id);
+            Validate(user.Id);
 
             var response = _mapper.Map<ResponseGetUser>(user);
 

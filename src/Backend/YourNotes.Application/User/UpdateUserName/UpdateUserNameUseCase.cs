@@ -1,6 +1,7 @@
 ﻿using YourNotes.Communication.Requests.User;
 using YourNotes.Communication.Responses.User;
 using YourNotes.Domain.Interfaces.Repositories;
+using YourNotes.Domain.Interfaces.Services;
 using YourNotes.Domain.Interfaces.UseCases;
 using YourNotes.Exception;
 using YourNotes.Exception.Exceptions;
@@ -10,19 +11,23 @@ namespace YourNotes.Application.User.UpdateUserName
     public class UpdateUserNameUseCase : IUpdateUserNameUseCase
     {
         private readonly IUnitOfWork _uof;
+        private readonly ILoggedUser _loggedUser;
 
-        public UpdateUserNameUseCase(IUnitOfWork uof)
+        public UpdateUserNameUseCase(IUnitOfWork uof, ILoggedUser loggedUser)
         {
             _uof = uof;
+            _loggedUser = loggedUser;
         }
-        public async Task<ResponseUpdateUserName> Execute(Guid id, RequestUpdateUserName request)
+        public async Task<ResponseUpdateUserName> Execute(RequestUpdateUserName request)
         {
             //mapear
 
-            var user = await _uof.Users.GetAsync(id) ?? throw new OnValidationException(YourNotesExceptionResource.USER_NOT_FOUND);
+            var userLogged = await _loggedUser.User();
 
-            if (user.UserName == request.UserName) return new ResponseUpdateUserName(user.UserName);
-            
+            var user = await _uof.Users.GetAsync(userLogged.Id);
+
+            if (user!.UserName == request.UserName) return new ResponseUpdateUserName(user.UserName);
+
             //validar
             await Validate(request);
 

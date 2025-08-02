@@ -12,7 +12,7 @@ namespace YourNotes.Persistence.Data.Migrations.Tables
                 .WithColumn("LastName").AsAnsiString().Nullable()
                 .WithColumn("UserName").AsAnsiString().Unique().Nullable()
                 .WithColumn("Email").AsAnsiString().Unique().Nullable()
-                .WithColumn("Password").AsAnsiString().Unique().Nullable();
+                .WithColumn("Password").AsAnsiString().Nullable();
 
         }
     }

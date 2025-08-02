@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YourNotes.Domain.Security
+namespace YourNotes.Domain.Interfaces.Security
 {
     public interface IJwtTokenValidator
     {

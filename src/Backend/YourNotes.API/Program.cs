@@ -1,6 +1,8 @@
 using YourNotes.API.Filters;
+using YourNotes.API.Token;
 using YourNotes.Application;
 using YourNotes.Persistence;
+using YourNotes.Persistence.Autentication.Tokens.Access;
 using YourNotes.Persistence.Data.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,11 +14,14 @@ builder.Services.AddControllers(options =>
     options.Filters.Add<YourNotesExceptionFilter>();
 });
 
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ITokenValue, TokenJwtValue>();
 builder.Services.AddPersistenceDependencyInjection(builder.Configuration);
 builder.Services.AddApplicationDependencyInjection(builder.Configuration);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
- 
+
 
 var app = builder.Build();
 

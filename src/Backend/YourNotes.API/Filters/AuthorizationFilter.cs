@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Primitives;
 using YourNotes.Communication.Responses;
-using YourNotes.Domain.Security;
+using YourNotes.Domain.Interfaces.Security;
 using YourNotes.Exception;
 using YourNotes.Exception.Exceptions;
 
