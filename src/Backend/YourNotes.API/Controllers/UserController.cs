@@ -11,15 +11,19 @@ namespace YourNotes.API.Controllers
     public class UserController : Controller
     {
         [HttpPost]
-        [ProducesResponseType(typeof(ResponseRegisterUser), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseRegisterUser), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ResponseRegisterUser), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> RegisterUser([FromServices] IRegisterUserUseCase useCase, [FromBody] RequestRegisterUser request)
         {
-            var response =  await useCase.Execute(request);
-            
-            return Ok(response);
+            var response = await useCase.Execute(request);
+
+            return new CreatedResult("", response);
         }
 
         [HttpPatch]
+        [ProducesResponseType(typeof(ResponseGetUser), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseGetUser), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ResponseGetUser), StatusCodes.Status401Unauthorized)]
         [AuthenticatedUser]
         public async Task<IActionResult> UpdateUserName([FromServices] IUpdateUserNameUseCase useCase, [FromBody] RequestUpdateUserName request)
         {
@@ -29,14 +33,25 @@ namespace YourNotes.API.Controllers
         }
 
         [HttpGet]
-        [AuthenticatedUser] 
+        [AuthenticatedUser]
         [ProducesResponseType(typeof(ResponseGetUser), StatusCodes.Status200OK)]
-
+        [ProducesResponseType(typeof(ResponseGetUser), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetUserById([FromServices] IGetUserByIdUseCase useCase)
         {
             var result = await useCase.Execute();
 
             return Ok(result);
+        }
+
+        [HttpDelete]
+        [AuthenticatedUser]
+        [ProducesResponseType(typeof(ResponseGetUser), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseGetUser), StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> Delete([FromServices] IDeleteUserUseCase useCase)
+        {
+            await useCase.Execute();
+
+            return Ok();
         }
     }
 }

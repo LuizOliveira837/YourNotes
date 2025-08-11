@@ -22,9 +22,7 @@ namespace YourNotes.Application.User.UpdateUserName
         {
             //mapear
 
-            var userLogged = await _loggedUser.User();
-
-            var user = await _uof.Users.GetAsync(userLogged.Id);
+            var user= await _loggedUser.User();
 
             if (user!.UserName == request.UserName) return new ResponseUpdateUserName(user.UserName);
 

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using YourNotes.Application.Services.Crypt;
 using YourNotes.Application.Services.Mapper;
+using YourNotes.Application.User.DeleteUser;
 using YourNotes.Application.User.GetUserById;
 using YourNotes.Application.User.RegisterUser;
 using YourNotes.Application.User.UpdateUserName;
@@ -31,7 +32,8 @@ namespace YourNotes.Application
             service
               .AddScoped<IRegisterUserUseCase, RegisterUserUseCase>()
               .AddScoped<IUpdateUserNameUseCase, UpdateUserNameUseCase>()
-              .AddScoped<IGetUserByIdUseCase, GetUserByIdUseCase>();
+              .AddScoped<IGetUserByIdUseCase, GetUserByIdUseCase>()
+              .AddScoped<IDeleteUserUseCase, DeleteUserUseCase>();
 
 
         }
