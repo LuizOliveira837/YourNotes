@@ -25,6 +25,19 @@ namespace WebAPI.Test
             get => _user.UserName;
         }
 
+        public string FirstName
+        {
+            get => _user.FirstName;
+        }
+
+        public string LastName
+        {
+            get => _user.LastName;
+        }
+        public bool Active
+        {
+            get => _user.Active;
+        }
         public Guid Id
         {
             get => _user.Id;

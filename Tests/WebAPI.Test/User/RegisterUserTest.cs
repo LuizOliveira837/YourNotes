@@ -10,14 +10,14 @@ namespace WebAPI.Test.User
 {
     public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
     {
-        public readonly HttpClient _client;
-        public readonly CustomWebApplicationFactory _factory;
-        public RequestRegisterUser request { get; set; }
+        private readonly HttpClient _client;
+        private readonly CustomWebApplicationFactory _factory;
+        private RequestRegisterUser _request { get; set; }
         public RegisterUserTest(CustomWebApplicationFactory factory)
         {
             _factory = factory;
             _client = _factory.CreateClient();
-            request = RequestRegisterUserBuilder.Build();
+            _request = RequestRegisterUserBuilder.Build();
 
         }
 
@@ -27,10 +27,10 @@ namespace WebAPI.Test.User
         public async Task Sucess()
         {
             //ARRANGE
-
+        
             //ACT
 
-            var result = await _client.PostAsJsonAsync("user", request);
+            var result = await _client.PostAsJsonAsync("user", _request);
 
 
             //ASSERT
@@ -38,7 +38,7 @@ namespace WebAPI.Test.User
             result
                 .StatusCode
                 .Should()
-                .Be(HttpStatusCode.OK);
+                .Be(HttpStatusCode.Created);
 
             using var resultAsStream = await result.Content.ReadAsStreamAsync();
 
@@ -64,11 +64,11 @@ namespace WebAPI.Test.User
         public async Task ERROR_INVALID_EMAIL()
         {
             //ARRANGE
-            request.Email = "luizhorochagmail.com";
+            _request.Email = "luizhorochagmail.com";
 
             //ACT
 
-            var result = await _client.PostAsJsonAsync("user", request);
+            var result = await _client.PostAsJsonAsync("user", _request);
 
 
             //ASSERT
@@ -101,11 +101,11 @@ namespace WebAPI.Test.User
         public async Task ERROR_EMAIL_ALREADY_EXISTS()
         {
             //ARRANGE
-            request.Email = _factory.Email;
+            _request.Email = _factory.Email;
 
             //ACT
 
-            var result = await _client.PostAsJsonAsync("user", request);
+            var result = await _client.PostAsJsonAsync("user", _request);
 
 
             //ASSERT
@@ -137,11 +137,11 @@ namespace WebAPI.Test.User
         public async Task ERROR_USERNAME_ALREADY_EXISTS()
         {
             //ARRANGE
-            request.UserName = _factory.UserName;
+            _request.UserName = _factory.UserName;
 
             //ACT
 
-            var result = await _client.PostAsJsonAsync("user", request);
+            var result = await _client.PostAsJsonAsync("user", _request);
 
 
             //ASSERT
@@ -173,11 +173,11 @@ namespace WebAPI.Test.User
         public async Task ERROR_PASSWORD_INVALID()
         {
             //ARRANGE
-            request.Password = string.Empty;
+            _request.Password = string.Empty;
 
             //ACT
 
-            var result = await _client.PostAsJsonAsync("user", request);
+            var result = await _client.PostAsJsonAsync("user", _request);
 
 
             //ASSERT
@@ -205,7 +205,6 @@ namespace WebAPI.Test.User
 
         }
 
-        
 
     }
 }

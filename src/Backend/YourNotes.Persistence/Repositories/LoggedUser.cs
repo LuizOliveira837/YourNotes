@@ -6,7 +6,7 @@ using YourNotes.Domain.Interfaces.Services;
 using YourNotes.Persistence.Autentication.Tokens.Access;
 using YourNotes.Persistence.Data;
 
-namespace YourNotes.Persistence.Autentication
+namespace YourNotes.Persistence.Repositories
 {
     public class LoggedUser : ILoggedUser
     {

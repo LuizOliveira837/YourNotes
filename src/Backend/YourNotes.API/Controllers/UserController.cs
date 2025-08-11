@@ -36,7 +36,7 @@ namespace YourNotes.API.Controllers
         [AuthenticatedUser]
         [ProducesResponseType(typeof(ResponseGetUser), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseGetUser), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetUserById([FromServices] IGetUserByIdUseCase useCase)
+        public async Task<IActionResult> GetUser([FromServices] IGetUserByIdUseCase useCase)
         {
             var result = await useCase.Execute();
 

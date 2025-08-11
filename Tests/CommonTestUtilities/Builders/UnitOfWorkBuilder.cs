@@ -13,30 +13,25 @@ namespace CommonTestUtilities.Builders
     {
         public Mock<IUnitOfWork> uof = new();
         public UserRepositoryBuilder userRepositoryMoq = new();
-        public UnitOfWorkBuilder(User user)
+        public UnitOfWorkBuilder(User? user)
         {
 
-
-            if (!string.IsNullOrEmpty(user.Email))
+            if (user is not null)
             {
                 userRepositoryMoq
                     .EmailExistsAsync(user.Email);
-            }
 
-            if (!user.Id.Equals(Guid.Empty))
-            {
                 userRepositoryMoq
-                     .CreateAsync(user.Id);
+                     .UserNameExistsAsync(user.UserName);
+
+                userRepositoryMoq
+                    .CreateAsync(user.Id);
 
                 userRepositoryMoq
                      .GetAsync(user);
             }
-
-            if (!string.IsNullOrEmpty(user.UserName))
-            {
-                userRepositoryMoq
-                     .UserNameExistsAsync(user.UserName);
-            }
+  
+ 
 
 
             uof

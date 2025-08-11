@@ -5,11 +5,10 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using YourNotes.Domain.Interfaces.Security;
 using YourNotes.Domain.Interfaces.Services;
-using YourNotes.Persistence.Autentication;
 using YourNotes.Persistence.Autentication.Tokens.Access.Generator;
 using YourNotes.Persistence.Autentication.Tokens.Access.Validator;
 using YourNotes.Persistence.Data;
-using YourNotes.Persistence.Data.Migrations.Tables;
+using YourNotes.Persistence.Repositories;
 
 namespace YourNotes.Persistence
 {

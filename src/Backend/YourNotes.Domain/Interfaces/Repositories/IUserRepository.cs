@@ -7,5 +7,6 @@ namespace YourNotes.Domain.Interfaces.Repositories
 
         public Task<bool> UserNameExistsAsync(string userName);
         public Task<bool> EmailExistsAsync(string email);
+        public Task<bool> UserExistsAsync(Guid id);
     }
 }

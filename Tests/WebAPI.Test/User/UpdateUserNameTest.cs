@@ -12,6 +12,7 @@ namespace WebAPI.Test.User
     {
         public readonly HttpClient _client;
         public readonly CustomWebApplicationFactory _factory;
+        public static string METHOD = "user";
         public RequestUpdateUserName? request { get; set; }
         public RequestRegisterUser requestRegisterUser { get; set; }
 
@@ -38,7 +39,7 @@ namespace WebAPI.Test.User
             //ACT
 
             _client.DefaultRequestHeaders.Add("Authorization", string.Concat("Bearer ", token.ToString()));
-            var result = await _client.PatchAsJsonAsync("user", request);
+            var result = await _client.PatchAsJsonAsync(METHOD, request);
 
 
             //ASSERT
@@ -78,7 +79,7 @@ namespace WebAPI.Test.User
             //ACT
 
             _client.DefaultRequestHeaders.Add("Authorization", string.Concat("Bearer ", token.ToString()));
-            var result = await _client.PatchAsJsonAsync("user", request);
+            var result = await _client.PatchAsJsonAsync(METHOD, request);
 
 
             //ASSERT
@@ -121,7 +122,7 @@ namespace WebAPI.Test.User
             //ACT
 
             _client.DefaultRequestHeaders.Add("Authorization", string.Concat("Bearer ", token.ToString()));
-            var result = await _client.PatchAsJsonAsync("user", request);
+            var result = await _client.PatchAsJsonAsync(METHOD, request);
 
 
             //ASSERT
@@ -129,7 +130,7 @@ namespace WebAPI.Test.User
             result
                 .StatusCode
                 .Should()
-                .Be(HttpStatusCode.BadRequest);
+                .Be(HttpStatusCode.Unauthorized);
 
 
             using var resultAsStream = await result.Content.ReadAsStreamAsync();
@@ -152,6 +153,41 @@ namespace WebAPI.Test.User
 
         }
 
-        
+        [Theory]
+        [InlineData("Teste1")]
+        public async Task ERROR_USER_UNAUTHORIZED(string userName)
+        {
+            //ARRANGE
+            request = new RequestUpdateUserName(userName);
+            var jwtGaneratorBuilder = JwtTokenGeneratorBuilder.Build();
+            var token = jwtGaneratorBuilder.GenerationToken(Guid.NewGuid());
+
+            //ACT
+
+            _client.DefaultRequestHeaders.Add("Authorization", string.Concat("Bearer ", token.ToString()));
+
+            var result = await _client
+                .PatchAsJsonAsync(METHOD, request);
+
+
+            //assert
+
+            result
+                .StatusCode
+                .Should()
+                .Be(HttpStatusCode.Unauthorized);
+
+            using var resultAsStream = result.Content.ReadAsStream();
+
+            var resultAsJson = JsonDocument.Parse(resultAsStream);
+
+            resultAsJson.RootElement.GetProperty("errors").EnumerateArray()
+                .Any(x => x.ToString() == YourNotesExceptionResource.USER_NOT_FOUND)
+                .Should()
+                .BeTrue();
+
+        }
+
+
     }
 }
