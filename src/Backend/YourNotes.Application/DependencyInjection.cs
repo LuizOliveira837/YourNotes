@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using YourNotes.Application.Login.LoginByEmailAndPassword;
 using YourNotes.Application.Services.Crypt;
 using YourNotes.Application.Services.Mapper;
 using YourNotes.Application.User.DeleteUser;
@@ -17,7 +18,6 @@ namespace YourNotes.Application
         public static void AddApplicationDependencyInjection(this IServiceCollection service, IConfiguration configuration)
         {
 
-            AddRepositories(service);
 
             AddMapper(service);
 
@@ -33,20 +33,15 @@ namespace YourNotes.Application
               .AddScoped<IRegisterUserUseCase, RegisterUserUseCase>()
               .AddScoped<IUpdateUserNameUseCase, UpdateUserNameUseCase>()
               .AddScoped<IGetUserByIdUseCase, GetUserByIdUseCase>()
-              .AddScoped<IDeleteUserUseCase, DeleteUserUseCase>();
+              .AddScoped<IDeleteUserUseCase, DeleteUserUseCase>()
+              .AddScoped<ILoginByEmailAndPasswordUseCase, LoginByEmailAndPasswordUseCase>();
+
+            
 
 
         }
 
-        public static void AddRepositories(this IServiceCollection service)
-        {
-            service
-                .AddScoped<IBaseRepository<YourNotes.Domain.Entities.User>, UserRepository>()
-                .AddScoped<IUserRepository, UserRepository>()
-                .AddScoped<IUnitOfWork, UnitOfWork>();
-
-        }
-
+      
         public static void AddMapper(this IServiceCollection service)
         {
             service

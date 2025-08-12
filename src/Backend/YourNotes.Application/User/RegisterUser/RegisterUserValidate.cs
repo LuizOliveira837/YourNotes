@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using YourNotes.Application.Services.ValidateAttribute;
 using YourNotes.Communication.Requests.User;
 using YourNotes.Exception;
 
@@ -25,12 +26,10 @@ namespace YourNotes.Application.User.RegisterUser
                .WithMessage(YourNotesExceptionResource.INVALID_LASTNAME);
 
             RuleFor(user => user.Email)
-               .Matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
-               .WithMessage(YourNotesExceptionResource.INVALID_EMAIL);
+                .SetValidator(new EmailValidator<RequestRegisterUser>());
 
             RuleFor(user => user.Password)
-              .Matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*_?&])[A-Za-z\\d@$!%_*?&]{10,}$")
-              .WithMessage(YourNotesExceptionResource.INVALID_PASSWORD);
+              .SetValidator(new PasswordValidator<RequestRegisterUser>());
         }
     }
 }

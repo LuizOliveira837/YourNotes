@@ -24,6 +24,15 @@ namespace YourNotes.API.Filters
 
 
             }
+
+            if (context.Exception is OnAuthorizationException exceptionAuthorization)
+            {
+                context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                context.Result = new BadRequestObjectResult(new ResponseErrorJson(exceptionAuthorization.Error));
+
+
+            }
         }
     }
 }

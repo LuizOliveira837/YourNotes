@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using YourNotes.Domain.Interfaces.Repositories;
 using YourNotes.Domain.Interfaces.Security;
 using YourNotes.Domain.Interfaces.Services;
 using YourNotes.Persistence.Autentication.Tokens.Access.Generator;
@@ -19,6 +20,7 @@ namespace YourNotes.Persistence
             AddDbContext(service, configuration);
             AddJwtToken(service, configuration);
             AddMigrations(service, configuration);
+            AddRepositories(service);
         }
 
         private static void AddJwtToken(IServiceCollection service, IConfiguration configuration)
@@ -52,6 +54,15 @@ namespace YourNotes.Persistence
                     opt.WithGlobalConnectionString(connectionString);
                     opt.ScanIn(Assembly.GetExecutingAssembly()).For.Migrations();
                 });
+        }
+
+        public static void AddRepositories(this IServiceCollection service)
+        {
+            service
+                .AddScoped<IBaseRepository<YourNotes.Domain.Entities.User>, UserRepository>()
+                .AddScoped<IUserRepository, UserRepository>()
+                .AddScoped<IUnitOfWork, UnitOfWork>();
+
         }
     }
 }

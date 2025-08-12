@@ -35,7 +35,16 @@ namespace YourNotes.Persistence.Repositories
 
         public async Task<User?> GetAsync(Guid id) => await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
 
-        public Task<bool> UserExistsAsync(Guid id) => _context.Users.AnyAsync(x=> x.Id == id);
+        public Task<bool> UserExistsAsync(Guid id) => _context.Users.AnyAsync(x => x.Id == id);
+
+        public async Task<User?> UserExistsByEmailAndPassword(string email, string password)
+        {
+            return await _context
+                 .Users
+                 .AsNoTracking()
+                 .FirstOrDefaultAsync(x => x.Email == email && x.Password == password && x.Active);
+
+        }
 
         public async Task<bool> UserNameExistsAsync(string userName) => await _context.Users.AsNoTracking().AnyAsync(x => x.UserName == userName);
     }
