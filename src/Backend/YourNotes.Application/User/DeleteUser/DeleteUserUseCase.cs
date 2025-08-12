@@ -16,8 +16,6 @@ namespace YourNotes.Application.User.DeleteUser
             user.Active = false;
 
             await _uof.Commit();
-
-            await Task.FromResult(0);
         }
     }
 }

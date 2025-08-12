@@ -7,6 +7,5 @@ namespace YourNotes.Domain.Interfaces.UseCases
     {
         public Task<ResponseRegisterUser> Execute(RequestLoginByEmailAndPassword request);
 
-        public Task<YourNotes.Domain.Entities.User> ValidateAndReturnUser(RequestLoginByEmailAndPassword request);
     }
 }

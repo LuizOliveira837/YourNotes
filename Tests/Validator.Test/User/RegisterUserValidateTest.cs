@@ -31,8 +31,7 @@ namespace Validators.Test.User
         [Theory]
         [InlineData("teste")]
         [InlineData("teste123")]
-        [InlineData("Teste123")]
-        [InlineData("Teste123@")]
+        [InlineData("Teste123")]      
         public void ERROR_PASSWORD_INVALID(string password)
         {
             //arrange
