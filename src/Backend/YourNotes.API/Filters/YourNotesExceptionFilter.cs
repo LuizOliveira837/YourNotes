@@ -27,7 +27,7 @@ namespace YourNotes.API.Filters
 
             if (context.Exception is OnAuthorizationException exceptionAuthorization)
             {
-                context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
 
                 context.Result = new UnauthorizedObjectResult(new ResponseErrorJson(exceptionAuthorization.Error));
 
