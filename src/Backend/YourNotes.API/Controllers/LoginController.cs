@@ -5,7 +5,7 @@ using YourNotes.Domain.Interfaces.UseCases;
 
 namespace YourNotes.API.Controllers
 {
-    [Controller]
+    [ApiController]
     [Route("[controller]")]
     public class LoginController : Controller
     {
