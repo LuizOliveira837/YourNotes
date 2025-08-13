@@ -1,5 +1,6 @@
 ﻿using Bogus;
 using YourNotes.Domain.Entities;
+using CommonTestUtilities.Services;
 
 namespace CommonTestUtilities.Builders
 {

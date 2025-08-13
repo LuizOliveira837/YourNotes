@@ -11,8 +11,7 @@ namespace YourNotes.Application.User.UpdateUserName
             RuleFor
                 (u => u.UserName)
                 .NotEmpty()
-                .NotNull()
-                .WithName(YourNotesExceptionResource.USERNAME_INVALID);
+                .WithMessage(YourNotesExceptionResource.USERNAME_INVALID);
         }
     }
 }

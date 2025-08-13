@@ -1,6 +1,4 @@
-﻿using YourNotes.Domain.Entities;
-
-namespace YourNotes.Domain.Interfaces.Repositories
+﻿namespace YourNotes.Domain.Interfaces.Repositories
 {
     public interface IBaseRepository<T> where T : class
     {

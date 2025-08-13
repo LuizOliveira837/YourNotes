@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace YourNotes.Domain.Entities
+﻿namespace YourNotes.Domain.Entities
 {
     public class User : BaseEntity
     {
@@ -13,7 +7,7 @@ namespace YourNotes.Domain.Entities
         public string LastName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
-
+    
         public User(string userName, string firstName, string lastName, string email, string password)
             : base()
         {
@@ -24,14 +18,10 @@ namespace YourNotes.Domain.Entities
             Password = password;
         }
 
-        public User()
-            : base()
+        public User() : base()
         {
             
         }
 
     }
-
-
-
 }

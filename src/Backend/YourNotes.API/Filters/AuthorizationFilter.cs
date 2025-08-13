@@ -37,7 +37,6 @@ namespace YourNotes.API.Filters
 
             }
 
-
         }
 
         public string GetToken(AuthorizationFilterContext context)

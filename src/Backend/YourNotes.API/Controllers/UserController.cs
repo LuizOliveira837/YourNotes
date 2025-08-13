@@ -2,6 +2,7 @@
 using YourNotes.API.Attributes;
 using YourNotes.Communication.Requests.User;
 using YourNotes.Communication.Responses.User;
+using YourNotes.Domain.Interfaces;
 using YourNotes.Domain.Interfaces.UseCases;
 
 namespace YourNotes.API.Controllers
@@ -50,6 +51,18 @@ namespace YourNotes.API.Controllers
         public async Task<IActionResult> Delete([FromServices] IDeleteUserUseCase useCase)
         {
             await useCase.Execute();
+
+            return Ok();
+        }
+
+        [HttpPatch("change-password")]
+        [ProducesResponseType(typeof(ResponseGetUser), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseGetUser), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ResponseGetUser), StatusCodes.Status401Unauthorized)]
+        [AuthenticatedUser]
+        public async Task<IActionResult> ChangePassword([FromServices] IChangePasswordUseCase useCase, [FromBody] RequestChangePassword request)
+        {
+            await useCase.Execute(request);
 
             return Ok();
         }

@@ -15,7 +15,6 @@ namespace YourNotes.Application.Services.Crypt
         public string Encrypter(string password)
         {
 
-
             var newPassword = $"{password}{_secretKey}";
 
             var newPasswordInBytes = Encoding.UTF8.GetBytes(newPassword);
@@ -23,7 +22,6 @@ namespace YourNotes.Application.Services.Crypt
             var newPasswordEncrypt = SHA512.HashData(newPasswordInBytes);
 
             return StringBytes(newPasswordEncrypt);
-
 
         }
 
@@ -42,8 +40,6 @@ namespace YourNotes.Application.Services.Crypt
             }
 
             return sb.ToString();
-
-
 
         }
 

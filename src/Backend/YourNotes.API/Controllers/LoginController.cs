@@ -9,12 +9,6 @@ namespace YourNotes.API.Controllers
     [Route("[controller]")]
     public class LoginController : Controller
     {
-        public LoginController()
-        {
-
-        }
-
-
         [HttpPost]
         [ProducesResponseType(typeof(ResponseRegisterUser), StatusCodes.Status200OK)]
         public async Task<IActionResult> LoginByEmailAndPassword([FromBody] RequestLoginByEmailAndPassword request,

@@ -42,5 +42,4 @@ MigrationDatabase.EnsureDatabase(builder.Configuration.GetConnectionString("SqlS
 app.Migrate();
 app.Run();
 
-
 public partial class Program { }

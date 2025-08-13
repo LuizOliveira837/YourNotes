@@ -49,4 +49,3 @@ namespace YourNotes.Persistence.Repositories
         public async Task<bool> UserNameExistsAsync(string userName) => await _context.Users.AsNoTracking().AnyAsync(x => x.UserName == userName);
     }
 }
-

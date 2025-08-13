@@ -13,6 +13,7 @@ namespace WebAPI.Test
         public CustomWebApplicationFactory()
         {
             _user = UserBuilder.Build();
+ 
         }
 
         public string Email
@@ -37,6 +38,11 @@ namespace WebAPI.Test
         public bool Active
         {
             get => _user.Active;
+        }
+
+        public string Password
+        {
+            get => _user.Password;
         }
         public Guid Id
         {
@@ -85,10 +91,20 @@ namespace WebAPI.Test
 
         private void CreateUserTest(YourNotesDbContext context)
         {
+
             context
                .Users
-               .Add(_user);
+               .Add(new YourNotes.Domain.Entities.User()
+               {
+                   UserName = UserName,
+                   FirstName = FirstName,
+                   LastName = LastName,
+                   Email = Email,  
+                   Password = PasswordEncrypterBuilder.Build().Encrypter(Password),
+                   Id = Id,
+               });
 
+           
             context
                 .SaveChanges();
         }

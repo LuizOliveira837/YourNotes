@@ -29,8 +29,7 @@ namespace YourNotes.API.Filters
             {
                 context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
-                context.Result = new BadRequestObjectResult(new ResponseErrorJson(exceptionAuthorization.Error));
-
+                context.Result = new UnauthorizedObjectResult(new ResponseErrorJson(exceptionAuthorization.Error));
 
             }
         }

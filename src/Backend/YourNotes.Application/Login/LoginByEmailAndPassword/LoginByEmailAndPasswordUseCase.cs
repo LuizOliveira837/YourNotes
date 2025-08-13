@@ -1,5 +1,4 @@
-﻿
-using YourNotes.Application.Services.Crypt;
+﻿using YourNotes.Application.Services.Crypt;
 using YourNotes.Communication.Requests.Login;
 using YourNotes.Communication.Responses;
 using YourNotes.Communication.Responses.User;

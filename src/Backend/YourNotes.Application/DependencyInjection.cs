@@ -3,13 +3,13 @@ using Microsoft.Extensions.DependencyInjection;
 using YourNotes.Application.Login.LoginByEmailAndPassword;
 using YourNotes.Application.Services.Crypt;
 using YourNotes.Application.Services.Mapper;
+using YourNotes.Application.User.ChangePassword;
 using YourNotes.Application.User.DeleteUser;
 using YourNotes.Application.User.GetUserById;
 using YourNotes.Application.User.RegisterUser;
 using YourNotes.Application.User.UpdateUserName;
-using YourNotes.Domain.Interfaces.Repositories;
+using YourNotes.Domain.Interfaces;
 using YourNotes.Domain.Interfaces.UseCases;
-using YourNotes.Persistence.Repositories;
 
 namespace YourNotes.Application
 {
@@ -17,14 +17,11 @@ namespace YourNotes.Application
     {
         public static void AddApplicationDependencyInjection(this IServiceCollection service, IConfiguration configuration)
         {
-
-
             AddMapper(service);
 
             AddServiceCrypt(service, configuration);
 
             AddUseCases(service);
-
         }
 
         private static void AddUseCases(IServiceCollection service)
@@ -34,14 +31,11 @@ namespace YourNotes.Application
               .AddScoped<IUpdateUserNameUseCase, UpdateUserNameUseCase>()
               .AddScoped<IGetUserByIdUseCase, GetUserByIdUseCase>()
               .AddScoped<IDeleteUserUseCase, DeleteUserUseCase>()
-              .AddScoped<ILoginByEmailAndPasswordUseCase, LoginByEmailAndPasswordUseCase>();
-
-            
-
-
+              .AddScoped<ILoginByEmailAndPasswordUseCase, LoginByEmailAndPasswordUseCase>()
+              .AddScoped<IChangePasswordUseCase, ChangePasswordUseCase>();
         }
 
-      
+
         public static void AddMapper(this IServiceCollection service)
         {
             service

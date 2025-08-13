@@ -1,5 +1,4 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using YourNotes.Persistence.Autentication.Tokens.Access;
+﻿using YourNotes.Persistence.Autentication.Tokens.Access;
 
 namespace YourNotes.API.Token
 {
