@@ -23,19 +23,11 @@ namespace YourNotes.Persistence.Repositories
 
         }
 
-        public Guid DeleteAsync(User user)
-        {
-            _context
-                    .Users.Remove(user);
-
-            return user.Id;
-        }
-
         public async Task<bool> EmailExistsAsync(string email) => await _context.Users.AsNoTracking().AnyAsync(u => u.Email == email);
 
         public async Task<User?> GetAsync(Guid id) => await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
 
-        public Task<bool> UserExistsAsync(Guid id) => _context.Users.AnyAsync(x => x.Id == id);
+        public async Task<bool> UserExistsAsync(Guid id) => await _context.Users.AnyAsync(x => x.Id == id);
 
         public async Task<User?> UserExistsByEmailAndPassword(string email, string password)
         {

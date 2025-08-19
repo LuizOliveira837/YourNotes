@@ -4,7 +4,6 @@
     {
 
         public Task<Guid> CreateAsync(T t);
-        public Guid DeleteAsync(T t);
         public Task<T?> GetAsync(Guid id);
 
     }
