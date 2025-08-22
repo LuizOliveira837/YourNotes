@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using YourNotes.Application.Login.LoginByEmailAndPassword;
 using YourNotes.Application.Services.Crypt;
 using YourNotes.Application.Services.Mapper;
+using YourNotes.Application.Topic.CreateTopic;
 using YourNotes.Application.User.ChangePassword;
 using YourNotes.Application.User.DeleteUser;
 using YourNotes.Application.User.GetUserById;
@@ -32,7 +33,8 @@ namespace YourNotes.Application
               .AddScoped<IGetUserByIdUseCase, GetUserByIdUseCase>()
               .AddScoped<IDeleteUserUseCase, DeleteUserUseCase>()
               .AddScoped<ILoginByEmailAndPasswordUseCase, LoginByEmailAndPasswordUseCase>()
-              .AddScoped<IChangePasswordUseCase, ChangePasswordUseCase>();
+              .AddScoped<IChangePasswordUseCase, ChangePasswordUseCase>()
+              .AddScoped<ICreateTopicUseCase, CreateTopicUseCase>();
         }
 
 

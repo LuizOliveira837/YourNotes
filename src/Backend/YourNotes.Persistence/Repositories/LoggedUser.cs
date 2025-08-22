@@ -1,22 +1,21 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using YourNotes.Domain.Entities;
+using YourNotes.Domain.Interfaces.Repositories.User;
 using YourNotes.Domain.Interfaces.Services;
 using YourNotes.Persistence.Autentication.Tokens.Access;
-using YourNotes.Persistence.Data;
 
 namespace YourNotes.Persistence.Repositories
 {
     public class LoggedUser : ILoggedUser
     {
         private readonly ITokenValue _tokenValue;
-        private readonly YourNotesDbContext _context;
+        private readonly IUserReadOnlyRepository _userReadOnlyRepository;
 
-        public LoggedUser(ITokenValue tokenValue, YourNotesDbContext context)
+        public LoggedUser(ITokenValue tokenValue, IUserReadOnlyRepository userReadOnlyRepository)
         {
             _tokenValue = tokenValue;
-            _context = context;
+            _userReadOnlyRepository = userReadOnlyRepository;
         }
         public async Task<User> User()
         {
@@ -30,9 +29,10 @@ namespace YourNotes.Persistence.Repositories
 
             var userIdentifierAsGuid = new Guid(userIdentifier);
 
-            return await _context
-                .Users
-                .FirstAsync(x => x.Id == userIdentifierAsGuid);
+            var user = await _userReadOnlyRepository
+                .GetAsync(userIdentifierAsGuid);
+
+            return user!;
         }
     }
 }

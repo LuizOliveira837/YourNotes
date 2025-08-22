@@ -3,6 +3,7 @@ using YourNotes.Communication.Requests.Login;
 using YourNotes.Communication.Responses;
 using YourNotes.Communication.Responses.User;
 using YourNotes.Domain.Interfaces.Repositories;
+using YourNotes.Domain.Interfaces.Repositories.User;
 using YourNotes.Domain.Interfaces.UseCases;
 using YourNotes.Exception;
 using YourNotes.Exception.Exceptions;
@@ -15,12 +16,14 @@ namespace YourNotes.Application.Login.LoginByEmailAndPassword
         private readonly IUnitOfWork _uof;
         private readonly PasswordEncrypter _encrypter;
         private readonly JwtTokenGenerator _tokenGenerator;
+        private readonly IUserReadOnlyRepository _readOnlyRepository;
 
-        public LoginByEmailAndPasswordUseCase(IUnitOfWork uof, PasswordEncrypter encrypter, JwtTokenGenerator tokenGenerator)
+        public LoginByEmailAndPasswordUseCase(IUnitOfWork uof, IUserReadOnlyRepository readOnlyRepository, PasswordEncrypter encrypter, JwtTokenGenerator tokenGenerator)
         {
             _uof = uof;
             _encrypter = encrypter;
             _tokenGenerator = tokenGenerator;
+            _readOnlyRepository = readOnlyRepository;
         }
 
         public async Task<ResponseRegisterUser> Execute(RequestLoginByEmailAndPassword request)
@@ -50,19 +53,9 @@ namespace YourNotes.Application.Login.LoginByEmailAndPassword
                 throw new OnValidationException(error ?? "");
             }
 
-            var user = await _uof.Users.UserExistsByEmailAndPassword(request.Email, _encrypter.Encrypter(request.Password));
+            var user = await _readOnlyRepository.UserExistsByEmailAndPassword(request.Email, _encrypter.Encrypter(request.Password));
 
-            if (user is null)
-            {
-                throw new OnAuthorizationException(YourNotesExceptionResource.USER_NOT_FOUND);
-            }
-
-
-            return user;
-
-
-
-
+            return user is null ? throw new OnAuthorizationException(YourNotesExceptionResource.USER_NOT_FOUND) : user;
         }
     }
 }

@@ -2,16 +2,17 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using YourNotes.Communication.Responses;
 using YourNotes.Domain.Interfaces.Repositories;
+using YourNotes.Domain.Interfaces.Repositories.User;
 using YourNotes.Domain.Interfaces.Security;
 using YourNotes.Exception;
 using YourNotes.Exception.Exceptions;
 
 namespace YourNotes.API.Filters
 {
-    public class AuthorizationFilter(IJwtTokenValidator validatorToken, IUserRepository userRepository) : IAsyncAuthorizationFilter
+    public class AuthorizationFilter(IJwtTokenValidator validatorToken, IUserReadOnlyRepository userRepository) : IAsyncAuthorizationFilter
     {
         private readonly IJwtTokenValidator _validatorToken = validatorToken;
-        private readonly IUserRepository _userRepository = userRepository;
+        private readonly IUserReadOnlyRepository _userRepository = userRepository;
 
         public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
         {

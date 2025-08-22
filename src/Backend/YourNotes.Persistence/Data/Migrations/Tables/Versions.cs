@@ -3,5 +3,6 @@
     public static class Versions
     {
         public const int TABLE_USER = 1;
+        public const int TABLE_TOPIC = 2;
     }
 }

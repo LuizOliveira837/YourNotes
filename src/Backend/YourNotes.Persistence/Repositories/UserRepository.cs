@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using YourNotes.Domain.Entities;
-using YourNotes.Domain.Interfaces.Repositories;
+using YourNotes.Domain.Interfaces.Repositories.User;
 using YourNotes.Persistence.Data;
 
 namespace YourNotes.Persistence.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : IUserReadOnlyRepository, IUserWriteOnlyRepository
     {
         private readonly YourNotesDbContext _context;
 

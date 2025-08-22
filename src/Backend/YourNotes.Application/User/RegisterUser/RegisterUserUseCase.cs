@@ -4,6 +4,7 @@ using YourNotes.Communication.Requests.User;
 using YourNotes.Communication.Responses;
 using YourNotes.Communication.Responses.User;
 using YourNotes.Domain.Interfaces.Repositories;
+using YourNotes.Domain.Interfaces.Repositories.User;
 using YourNotes.Domain.Interfaces.UseCases;
 using YourNotes.Exception;
 using YourNotes.Exception.Exceptions;
@@ -16,16 +17,21 @@ namespace YourNotes.Application.User.RegisterUser
         private readonly IUnitOfWork _uof;
         private readonly IMapper _mapper;
         public readonly JwtTokenGenerator _tokenGenerator;
+        private readonly IUserReadOnlyRepository _userReadOnlyRepository;
+        private readonly IUserWriteOnlyRepository _userWriteOnlyRepository;
         public readonly PasswordEncrypter _passwordEncrypter;
 
 
-        public RegisterUserUseCase(IMapper mapper, IUnitOfWork uof, PasswordEncrypter passwordEncrypter, JwtTokenGenerator tokenGenerator)
+        public RegisterUserUseCase
+            (IMapper mapper, IUnitOfWork uof, IUserWriteOnlyRepository userWriteOnlyRepository, IUserReadOnlyRepository userReadOnlyRepository, PasswordEncrypter passwordEncrypter, JwtTokenGenerator tokenGenerator)
         {
 
             _mapper = mapper;
             _uof = uof;
             _passwordEncrypter = passwordEncrypter;
             _tokenGenerator = tokenGenerator;
+            _userReadOnlyRepository = userReadOnlyRepository;
+            _userWriteOnlyRepository = userWriteOnlyRepository;
         }
         public async Task<ResponseRegisterUser> Execute(RequestRegisterUser request)
         {
@@ -38,7 +44,7 @@ namespace YourNotes.Application.User.RegisterUser
             var user = _mapper.Map<YourNotes.Domain.Entities.User>(request);
 
             user.Password = _passwordEncrypter.Encrypter(user.Password);
-            var id = await _uof.Users.CreateAsync(user);
+            var id = await _userWriteOnlyRepository.CreateAsync(user);
 
 
             await _uof.Commit();
@@ -70,11 +76,11 @@ namespace YourNotes.Application.User.RegisterUser
                 throw new OnValidationException(error);
             }
 
-            if (await _uof.Users.UserNameExistsAsync(request.UserName))
+            if (await _userReadOnlyRepository.UserNameExistsAsync(request.UserName))
                 throw new OnValidationException(YourNotesExceptionResource.USERNAME_ALREADY_EXISTS);
 
 
-            if (await _uof.Users.EmailExistsAsync(request.Email))
+            if (await _userReadOnlyRepository.EmailExistsAsync(request.Email))
                 throw new OnValidationException(YourNotesExceptionResource.EMAIL_ALREADY_EXISTS);
 
 

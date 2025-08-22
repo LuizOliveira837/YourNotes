@@ -1,6 +1,7 @@
 ﻿using YourNotes.Communication.Requests.User;
 using YourNotes.Communication.Responses.User;
 using YourNotes.Domain.Interfaces.Repositories;
+using YourNotes.Domain.Interfaces.Repositories.User;
 using YourNotes.Domain.Interfaces.Services;
 using YourNotes.Domain.Interfaces.UseCases;
 using YourNotes.Exception;
@@ -12,11 +13,13 @@ namespace YourNotes.Application.User.UpdateUserName
     {
         private readonly IUnitOfWork _uof;
         private readonly ILoggedUser _loggedUser;
+        private readonly IUserReadOnlyRepository _userReadOnlyRepository;
 
-        public UpdateUserNameUseCase(IUnitOfWork uof, ILoggedUser loggedUser)
+        public UpdateUserNameUseCase(IUnitOfWork uof, IUserReadOnlyRepository userReadOnlyRepository, IUserWriteOnlyRepository userWriteOnlyRepository, ILoggedUser loggedUser)
         {
             _uof = uof;
             _loggedUser = loggedUser;
+            _userReadOnlyRepository = userReadOnlyRepository;
         }
         public async Task<ResponseUpdateUserName> Execute(RequestUpdateUserName request)
         {
@@ -59,8 +62,7 @@ namespace YourNotes.Application.User.UpdateUserName
                 throw new OnValidationException(error);
             }
 
-            var userNameAlreadyExists = await _uof
-                 .Users
+            var userNameAlreadyExists = await _userReadOnlyRepository
                  .UserNameExistsAsync(request.UserName);
 
             if (userNameAlreadyExists is true) throw new OnValidationException(YourNotesExceptionResource.USERNAME_ALREADY_EXISTS);

@@ -106,6 +106,24 @@ namespace YourNotes.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The title is invalid.
+        /// </summary>
+        public static string INVALID_TITLE {
+            get {
+                return ResourceManager.GetString("INVALID_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The title already exists.
+        /// </summary>
+        public static string TITLE_ALREADY_EXISTS {
+            get {
+                return ResourceManager.GetString("TITLE_ALREADY_EXISTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a User not found with the provided id.
         /// </summary>
         public static string USER_NOT_FOUND {

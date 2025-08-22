@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using YourNotes.Domain.Interfaces.Repositories;
+using YourNotes.Domain.Interfaces.Repositories.Topic;
+using YourNotes.Domain.Interfaces.Repositories.User;
 using YourNotes.Domain.Interfaces.Security;
 using YourNotes.Domain.Interfaces.Services;
 using YourNotes.Persistence.Autentication.Tokens.Access.Generator;
@@ -59,8 +61,10 @@ namespace YourNotes.Persistence
         public static void AddRepositories(this IServiceCollection service)
         {
             service
-                .AddScoped<IBaseRepository<YourNotes.Domain.Entities.User>, UserRepository>()
-                .AddScoped<IUserRepository, UserRepository>()
+                .AddScoped<IUserReadOnlyRepository, UserRepository>()
+                .AddScoped<IUserWriteOnlyRepository, UserRepository>()
+                .AddScoped<ITopicReadOnlyRepository, TopicRepository>()
+                .AddScoped<ITopicWriteOnlyRepository, TopicRepository>()
                 .AddScoped<IUnitOfWork, UnitOfWork>();
 
         }
