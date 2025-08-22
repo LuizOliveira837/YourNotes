@@ -10,10 +10,16 @@ namespace WebAPI.Test
     public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     {
         private readonly YourNotes.Domain.Entities.User _user;
+        private readonly YourNotes.Domain.Entities.Topic _topic;
+
         public CustomWebApplicationFactory()
         {
             _user = UserBuilder.Build();
- 
+            _topic = new YourNotes.Domain.Entities.Topic()
+            {
+                Title = "Test",
+            };
+
         }
 
         public string Email
@@ -49,7 +55,10 @@ namespace WebAPI.Test
             get => _user.Id;
         }
 
-
+        public string Title
+        {
+            get => _topic.Title;
+        }
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
@@ -81,6 +90,8 @@ namespace WebAPI.Test
                   if (context is not null)
                   {
                       CreateUserTest(context);
+
+                      CreateTopicTest(context);
                   }
 
 
@@ -99,14 +110,31 @@ namespace WebAPI.Test
                    UserName = UserName,
                    FirstName = FirstName,
                    LastName = LastName,
-                   Email = Email,  
+                   Email = Email,
                    Password = PasswordEncrypterBuilder.Build().Encrypter(Password),
                    Id = Id,
                });
 
-           
+
             context
                 .SaveChanges();
+        }
+
+        private void CreateTopicTest(YourNotesDbContext context)
+        {
+
+            context
+               .Topics
+               .Add(new YourNotes.Domain.Entities.Topic()
+               {
+                   Title = _topic.Title,
+                   Id = Id,
+                   UserId = _user.Id,
+               });
+
+            context
+              .SaveChanges();
+
         }
     }
 }

@@ -13,12 +13,14 @@ namespace UseCases.Test.User
 
         public RegisterUserUseCase RegisterUserUseCaseBuild(YourNotes.Domain.Entities.User? user)
         {
-            var uof = new UnitOfWorkBuilder(user);
+            var uof = new UnitOfWorkBuilder();
+            var readRepository = new UserReadOnlyRepositoryBuilder(user).Build();
+            var writeRepository = new UserWriteOnlyRepositoryBuilder(user).Build();
             var mapper = MapperBuilder.Builder();
             var passwordEncrypter = PasswordEncrypterBuilder.Build();
             var jwtToken = JwtTokenGeneratorBuilder.Build();
 
-            return new RegisterUserUseCase(mapper, uof.uof.Object, passwordEncrypter, jwtToken);
+            return new RegisterUserUseCase(mapper, uof.uof.Object, writeRepository, readRepository, passwordEncrypter, jwtToken);
 
         }
 

@@ -10,12 +10,15 @@ namespace UseCases.Test.User
     public class UpdateUserNameUseCaseTest
     {
         public UnitOfWorkBuilder? uofMoq;
-        public UpdateUserNameUseCase UpdateUserNameUseCaseBuild(YourNotes.Domain.Entities.User? user)
+        public UpdateUserNameUseCase UpdateUserNameUseCaseBuild(YourNotes.Domain.Entities.User? user, string userName = "")
         {
-            uofMoq = new UnitOfWorkBuilder(user);
+            uofMoq = new UnitOfWorkBuilder();
+            var readRepository = new UserReadOnlyRepositoryBuilder(user).UserNameExistsAsync(userName).Build();
+            var writeRepository = new UserWriteOnlyRepositoryBuilder(user).Build();
+
             var loggedUser = new LoggedUserBuilder().Builder(user).loggedUser;
 
-            return new UpdateUserNameUseCase(uofMoq.uof.Object, loggedUser.Object);
+            return new UpdateUserNameUseCase(uofMoq.uof.Object, readRepository, writeRepository, loggedUser.Object);
         }
 
 
@@ -48,9 +51,8 @@ namespace UseCases.Test.User
             var user = UserBuilder.Build();
 
 
-            var useCase = UpdateUserNameUseCaseBuild(user);
+            var useCase = UpdateUserNameUseCaseBuild(user, userName);
 
-            uofMoq!.userRepositoryMoq.UserNameExistsAsync(userName);
             //act
 
             var result = async () => await useCase.Execute(new RequestUpdateUserName(userName));
@@ -62,8 +64,6 @@ namespace UseCases.Test.User
                 .Should()
                 .ThrowAsync<OnValidationException>())
                 .WithMessage(YourNotesExceptionResource.USERNAME_ALREADY_EXISTS);
-
-
 
         }
 
