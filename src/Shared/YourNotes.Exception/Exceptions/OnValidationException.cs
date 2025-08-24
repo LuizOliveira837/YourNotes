@@ -1,9 +1,11 @@
-﻿namespace YourNotes.Exception.Exceptions
+﻿using System.Net;
+
+namespace YourNotes.Exception.Exceptions
 {
     public class OnValidationException : YourNotesBaseException
     {
         public OnValidationException(string error)
-            : base(error)
+            : base(error, HttpStatusCode.BadRequest)
         {
         }
 

@@ -1,21 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net;
 
 namespace YourNotes.Exception.Exceptions
 {
     public class YourNotesBaseException : SystemException
     {
         public string Error { get; set; } = string.Empty;
+        public HttpStatusCode StatusCode { get; set; } = HttpStatusCode.InternalServerError;
 
 
         public YourNotesBaseException(string error)
-            :base(error)
+            : base(error)
         {
             Error = error;
         }
+
+        public YourNotesBaseException(string error, HttpStatusCode statusCode)
+            : base(error)
+        {
+            Error = error;
+            StatusCode = statusCode;
+        }
+
+        public string GetMessage() => Error;
+        public int GetStatusCode() => (int) StatusCode;
 
     }
 }

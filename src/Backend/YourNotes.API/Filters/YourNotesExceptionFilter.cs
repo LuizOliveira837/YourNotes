@@ -10,28 +10,17 @@ namespace YourNotes.API.Filters
     {
         public void OnException(ExceptionContext context)
         {
-            if (context.Exception is YourNotesBaseException) HandleProjectException(context);
+            if (context.Exception is YourNotesBaseException baseException) HandleProjectException(context);
         }
 
 
         public void HandleProjectException(ExceptionContext context)
         {
-            if (context.Exception is OnValidationException exception)
-            {
-                context.HttpContext.Response.StatusCode =  (int) HttpStatusCode.BadRequest;
+            var exception = (YourNotesBaseException)context.Exception;
+            context.HttpContext.Response.StatusCode = exception.GetStatusCode();
 
-                 context.Result = new BadRequestObjectResult(new ResponseErrorJson(exception.Error));
+            context.Result = new ObjectResult(new ResponseErrorJson(exception.GetMessage()));
 
-
-            }
-
-            if (context.Exception is OnAuthorizationException exceptionAuthorization)
-            {
-                context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-
-                context.Result = new UnauthorizedObjectResult(new ResponseErrorJson(exceptionAuthorization.Error));
-
-            }
         }
     }
 }
