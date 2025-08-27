@@ -4,13 +4,14 @@ using YourNotes.Application.Login.LoginByEmailAndPassword;
 using YourNotes.Application.Services.Crypt;
 using YourNotes.Application.Services.Mapper;
 using YourNotes.Application.Topic.CreateTopic;
+using YourNotes.Application.Topic.GetTopic;
 using YourNotes.Application.User.ChangePassword;
 using YourNotes.Application.User.DeleteUser;
 using YourNotes.Application.User.GetUserById;
 using YourNotes.Application.User.RegisterUser;
 using YourNotes.Application.User.UpdateUserName;
-using YourNotes.Domain.Interfaces;
 using YourNotes.Domain.Interfaces.UseCases;
+
 
 namespace YourNotes.Application
 {
@@ -34,7 +35,9 @@ namespace YourNotes.Application
               .AddScoped<IDeleteUserUseCase, DeleteUserUseCase>()
               .AddScoped<ILoginByEmailAndPasswordUseCase, LoginByEmailAndPasswordUseCase>()
               .AddScoped<IChangePasswordUseCase, ChangePasswordUseCase>()
-              .AddScoped<ICreateTopicUseCase, CreateTopicUseCase>();
+              .AddScoped<ICreateTopicUseCase, CreateTopicUseCase>()
+              .AddScoped<IGetTopicUseCase, GetTopicUseCase>();
+
         }
 
 

@@ -1,12 +1,12 @@
 ﻿using YourNotes.Communication.Requests.Topic;
 using YourNotes.Communication.Responses.Topic;
 
-namespace YourNotes.Application.Topic.CreateTopic
+namespace YourNotes.Domain.Interfaces.UseCases
 {
     public interface ICreateTopicUseCase
     {
 
-        public Task<ResponseCreateTopicJson> Execute(RequestTopicJson request);
+        public Task<ResponseTopicJson> Execute(RequestTopicJson request);
 
         public Task Validate(RequestTopicJson request, Guid userId);
     }

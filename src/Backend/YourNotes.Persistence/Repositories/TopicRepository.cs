@@ -22,6 +22,16 @@ namespace YourNotes.Persistence.Repositories
             return topic.Id;
         }
 
+        public async Task<IList<Topic>> GetTopics(User user)
+        {
+            return await
+                  _context
+                 .Topics
+                 .AsNoTracking()
+                 .Where(t => t.UserId == user.Id && t.Active)
+                 .ToListAsync();
+        }
+
         public async Task<bool> TopicAlreadyExists(string title, Guid id)
         {
             return await

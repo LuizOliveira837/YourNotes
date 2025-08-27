@@ -1,8 +1,8 @@
 ﻿using YourNotes.Application.Services.Crypt;
 using YourNotes.Communication.Requests.User;
-using YourNotes.Domain.Interfaces;
 using YourNotes.Domain.Interfaces.Repositories;
 using YourNotes.Domain.Interfaces.Services;
+using YourNotes.Domain.Interfaces.UseCases;
 using YourNotes.Exception;
 using YourNotes.Exception.Exceptions;
 

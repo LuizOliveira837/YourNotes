@@ -1,6 +1,6 @@
 ﻿using YourNotes.Communication.Requests.User;
 
-namespace YourNotes.Domain.Interfaces
+namespace YourNotes.Domain.Interfaces.UseCases
 {
     public interface IChangePasswordUseCase
     {

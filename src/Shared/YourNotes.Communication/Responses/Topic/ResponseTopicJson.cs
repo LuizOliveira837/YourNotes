@@ -1,8 +1,8 @@
 ﻿namespace YourNotes.Communication.Responses.Topic
 {
-    public class ResponseCreateTopicJson
+    public class ResponseTopicJson
     {
-        public ResponseCreateTopicJson(Guid id, string title)
+        public ResponseTopicJson(Guid id, string title)
         {
             Id = id;
             Title = title;

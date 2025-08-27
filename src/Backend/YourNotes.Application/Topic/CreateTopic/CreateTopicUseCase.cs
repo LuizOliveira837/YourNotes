@@ -4,6 +4,7 @@ using YourNotes.Communication.Responses.Topic;
 using YourNotes.Domain.Interfaces.Repositories;
 using YourNotes.Domain.Interfaces.Repositories.Topic;
 using YourNotes.Domain.Interfaces.Services;
+using YourNotes.Domain.Interfaces.UseCases;
 using YourNotes.Exception;
 using YourNotes.Exception.Exceptions;
 
@@ -25,7 +26,7 @@ namespace YourNotes.Application.Topic.CreateTopic
             _writeRepository = writeRepository;
             _mapper = mapper;
         }
-        public async Task<ResponseCreateTopicJson> Execute(RequestTopicJson request)
+        public async Task<ResponseTopicJson> Execute(RequestTopicJson request)
         {
             var user = await _loggedUser.User();
 
@@ -39,7 +40,7 @@ namespace YourNotes.Application.Topic.CreateTopic
 
             await _uof.Commit();
 
-            return new ResponseCreateTopicJson(id, topic.Title);
+            return new ResponseTopicJson(id, topic.Title);
         }
 
         public async Task Validate(RequestTopicJson request, Guid userId)
