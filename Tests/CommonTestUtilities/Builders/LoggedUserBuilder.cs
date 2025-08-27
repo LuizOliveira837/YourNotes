@@ -8,7 +8,7 @@ namespace CommonTestUtilities.Builders
     {
         public Mock<ILoggedUser> loggedUser = new();
 
-        public LoggedUserBuilder Builder(User? user)
+        public LoggedUserBuilder Build(User? user)
         {
             if (user is not null)
             {

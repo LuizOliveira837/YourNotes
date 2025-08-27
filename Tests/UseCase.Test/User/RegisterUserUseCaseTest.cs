@@ -16,7 +16,7 @@ namespace UseCases.Test.User
             var uof = new UnitOfWorkBuilder();
             var readRepository = new UserReadOnlyRepositoryBuilder(user).Build();
             var writeRepository = new UserWriteOnlyRepositoryBuilder(user).Build();
-            var mapper = MapperBuilder.Builder();
+            var mapper = MapperBuilder.Build();
             var passwordEncrypter = PasswordEncrypterBuilder.Build();
             var jwtToken = JwtTokenGeneratorBuilder.Build();
 

@@ -16,7 +16,7 @@ namespace UseCases.Test.User
             var readRepository = new UserReadOnlyRepositoryBuilder(user).UserNameExistsAsync(userName).Build();
             var writeRepository = new UserWriteOnlyRepositoryBuilder(user).Build();
 
-            var loggedUser = new LoggedUserBuilder().Builder(user).loggedUser;
+            var loggedUser = new LoggedUserBuilder().Build(user).loggedUser;
 
             return new UpdateUserNameUseCase(uofMoq.uof.Object, readRepository, writeRepository, loggedUser.Object);
         }

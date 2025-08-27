@@ -10,14 +10,14 @@ namespace UseCases.Test.Topic
     public class CreateTopicUseCaseTest
     {
         public YourNotes.Domain.Entities.Topic topic;
-        public CreateTopicUseCase Build(YourNotes.Domain.Entities.User? user, string title = "")
+        public CreateTopicUseCase Build(YourNotes.Domain.Entities.User user, string title = "")
         {
             topic = new YourNotes.Domain.Entities.Topic(user.Id, title);
-            var readRepository = new TopicReadOnlyRepositoryBuilder(title, user.Id).repository.Object;
+            var readRepository = new TopicReadOnlyRepositoryBuilder(title, user).repository.Object;
             var writeRepository = new TopicWriteOnlyRepositoryBuilder(topic).repository.Object;
             var uof = new UnitOfWorkBuilder().uof.Object;
-            var loggedUser = new LoggedUserBuilder().Builder(user).loggedUser.Object;
-            var mapper = MapperBuilder.Builder();
+            var loggedUser = new LoggedUserBuilder().Build(user).loggedUser.Object;
+            var mapper = MapperBuilder.Build();
             return new CreateTopicUseCase(uof, loggedUser, mapper, readRepository, writeRepository);
         }
 

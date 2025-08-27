@@ -10,8 +10,8 @@ namespace UseCases.Test.User
         public static GetUserByIdUseCase GetUserByIdUseCaseBuild(YourNotes.Domain.Entities.User? user)
         {
 
-            var loggedUser = new LoggedUserBuilder().Builder(user).loggedUser.Object;
-            var mapper = MapperBuilder.Builder();
+            var loggedUser = new LoggedUserBuilder().Build(user).loggedUser.Object;
+            var mapper = MapperBuilder.Build();
             return new GetUserByIdUseCase(loggedUser, mapper);
         }
 

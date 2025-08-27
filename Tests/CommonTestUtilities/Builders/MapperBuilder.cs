@@ -6,7 +6,7 @@ namespace CommonTestUtilities.Builders
     public static class MapperBuilder
     {
 
-        public static IMapper Builder()
+        public static IMapper Build()
         {
 
             var mapper = new MapperConfiguration(opt =>
