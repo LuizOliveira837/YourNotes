@@ -8,14 +8,13 @@ namespace CommonTestUtilities.Builders
     {
         public Mock<ITopicReadOnlyRepository> repository;
 
-        public TopicReadOnlyRepositoryBuilder(string? title, YourNotes.Domain.Entities.User? user)
+        public TopicReadOnlyRepositoryBuilder(YourNotes.Domain.Entities.User? user, string? title = "")
         {
             repository = new();
 
             if (!string.IsNullOrEmpty(title) && user is not null)
             {
                 TopicAlreadyExists(title, user.Id);
-
 
             }
 
@@ -28,6 +27,15 @@ namespace CommonTestUtilities.Builders
                 .Setup(t => t.TopicAlreadyExists(title, id))
                 .ReturnsAsync(true);
 
+        }
+
+        public TopicReadOnlyRepositoryBuilder GetTopicByIdAndUserId(Guid id, Guid userId, Topic topic)
+        {
+            repository
+                .Setup(t => t.GetTopicByIdAndUserId(id, userId))
+                .ReturnsAsync(topic);
+
+            return this;
         }
 
         public void GetTopics(string? title, YourNotes.Domain.Entities.User? user)

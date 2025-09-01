@@ -1,11 +1,8 @@
-﻿
-using Azure.Core;
-using CommonTestUtilities.Builders;
+﻿using CommonTestUtilities.Builders;
 using FluentAssertions;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace WebAPI.Test.Topic
 {
@@ -81,13 +78,7 @@ namespace WebAPI.Test.Topic
 
             var result = await _client.GetAsync(METHOD);
 
-
-            using var resultAsStream = await result.Content.ReadAsStreamAsync();
-            var resultAsJson = JsonDocument.Parse(resultAsStream);
-
-
-            var topics = resultAsJson.RootElement.GetProperty("topics").EnumerateArray().Count();
-
+          
             //assert
             resultCreateUser
                 .StatusCode
@@ -98,11 +89,8 @@ namespace WebAPI.Test.Topic
             result
                 .StatusCode
                 .Should()
-                .Be(HttpStatusCode.OK);
+                .Be(HttpStatusCode.NoContent);
 
-            topics
-                .Should()
-                .Be(0);
         }
     }
 }

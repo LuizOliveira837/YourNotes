@@ -14,6 +14,7 @@ namespace CommonTestUtilities.Builders
             {
                 CreateAsync(topic);
             }
+
         }
 
         public void CreateAsync(YourNotes.Domain.Entities.Topic topic)
@@ -22,5 +23,7 @@ namespace CommonTestUtilities.Builders
                 .Setup(t => t.CreateAsync(It.IsAny<YourNotes.Domain.Entities.Topic>()))
                 .ReturnsAsync(topic.Id);
         }
+
+       
     }
 }

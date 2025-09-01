@@ -12,7 +12,7 @@ namespace UseCases.Test.Topic
         {
             var mapper = MapperBuilder.Build();
             var loggedUser = new LoggedUserBuilder().Build(user).loggedUser.Object;
-            var readRepository = new TopicReadOnlyRepositoryBuilder(title, user).repository.Object;
+            var readRepository = new TopicReadOnlyRepositoryBuilder(user, title).repository.Object;
 
 
             return new GetTopicUseCase(mapper, loggedUser, readRepository);

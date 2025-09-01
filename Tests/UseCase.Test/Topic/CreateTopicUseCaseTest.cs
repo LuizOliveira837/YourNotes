@@ -13,7 +13,7 @@ namespace UseCases.Test.Topic
         public CreateTopicUseCase Build(YourNotes.Domain.Entities.User user, string title = "")
         {
             topic = new YourNotes.Domain.Entities.Topic(user.Id, title);
-            var readRepository = new TopicReadOnlyRepositoryBuilder(title, user).repository.Object;
+            var readRepository = new TopicReadOnlyRepositoryBuilder(user, title).repository.Object;
             var writeRepository = new TopicWriteOnlyRepositoryBuilder(topic).repository.Object;
             var uof = new UnitOfWorkBuilder().uof.Object;
             var loggedUser = new LoggedUserBuilder().Build(user).loggedUser.Object;
