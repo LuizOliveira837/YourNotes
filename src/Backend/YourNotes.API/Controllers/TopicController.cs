@@ -24,10 +24,25 @@ namespace YourNotes.API.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(ResponseTopicJson), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseTopicJson), StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Get([FromServices] IGetTopicUseCase useCase)
         {
             var response = await useCase.Execute();
+
+            if (response.Topics.Any()) return Ok(response);
+
+            return NoContent();
+        }
+
+        [HttpPut]
+        [ProducesResponseType(typeof(ResponseTopicJson), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseTopicJson), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult>
+            Get([FromBody] RequestUpdateTopicJson request, [FromServices] IUpdateTopicUseCase useCase)
+        {
+            var response = await useCase.Execute(request);
 
             return Ok(response);
         }

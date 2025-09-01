@@ -5,6 +5,7 @@ using YourNotes.Application.Services.Crypt;
 using YourNotes.Application.Services.Mapper;
 using YourNotes.Application.Topic.CreateTopic;
 using YourNotes.Application.Topic.GetTopic;
+using YourNotes.Application.Topic.UpdateTopic;
 using YourNotes.Application.User.ChangePassword;
 using YourNotes.Application.User.DeleteUser;
 using YourNotes.Application.User.GetUserById;
@@ -36,7 +37,8 @@ namespace YourNotes.Application
               .AddScoped<ILoginByEmailAndPasswordUseCase, LoginByEmailAndPasswordUseCase>()
               .AddScoped<IChangePasswordUseCase, ChangePasswordUseCase>()
               .AddScoped<ICreateTopicUseCase, CreateTopicUseCase>()
-              .AddScoped<IGetTopicUseCase, GetTopicUseCase>();
+              .AddScoped<IGetTopicUseCase, GetTopicUseCase>()
+              .AddScoped<IUpdateTopicUseCase, UpdateTopicUseCase>();
 
         }
 

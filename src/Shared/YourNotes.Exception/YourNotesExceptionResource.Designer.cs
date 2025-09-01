@@ -124,6 +124,24 @@ namespace YourNotes.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The TopicId is invalid.
+        /// </summary>
+        public static string TOPIC_INVALID {
+            get {
+                return ResourceManager.GetString("TOPIC_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The topic not found.
+        /// </summary>
+        public static string TOPIC_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("TOPIC_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a User not found with the provided id.
         /// </summary>
         public static string USER_NOT_FOUND {

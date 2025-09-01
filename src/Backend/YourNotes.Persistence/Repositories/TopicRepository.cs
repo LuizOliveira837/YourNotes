@@ -22,6 +22,16 @@ namespace YourNotes.Persistence.Repositories
             return topic.Id;
         }
 
+        public async Task<Topic?> GetTopicByIdAndUserId(Guid id, Guid userId)
+        {
+            var query = await _context
+                .Topics
+                .Where(t=> t.Id == id && t.UserId == userId && t.Active)
+                .FirstOrDefaultAsync();
+
+            return query;
+        }
+
         public async Task<IList<Topic>> GetTopics(User user)
         {
             return await
@@ -39,5 +49,8 @@ namespace YourNotes.Persistence.Repositories
                 .Topics
                 .AnyAsync(t => t.Title == title && t.UserId == id);
         }
+
+        public void UpdateAsync(Topic topic) => _context.Topics.Update(topic);
+
     }
 }

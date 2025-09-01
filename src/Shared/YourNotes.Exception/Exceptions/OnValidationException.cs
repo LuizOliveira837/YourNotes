@@ -7,6 +7,13 @@ namespace YourNotes.Exception.Exceptions
         public OnValidationException(string error)
             : base(error, HttpStatusCode.BadRequest)
         {
+
+        }
+
+        public OnValidationException(string error, HttpStatusCode statusCode)
+            : base(error, statusCode)
+        {
+
         }
 
 
