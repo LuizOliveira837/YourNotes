@@ -55,6 +55,11 @@ namespace WebAPI.Test
             get => _user.Id;
         }
 
+        public Guid TitleId
+        {
+            get => _topic.Id;
+        }
+
         public string Title
         {
             get => _topic.Title;
@@ -128,7 +133,7 @@ namespace WebAPI.Test
                .Add(new YourNotes.Domain.Entities.Topic()
                {
                    Title = _topic.Title,
-                   Id = Id,
+                   Id = _topic.Id,
                    UserId = _user.Id,
                });
 
