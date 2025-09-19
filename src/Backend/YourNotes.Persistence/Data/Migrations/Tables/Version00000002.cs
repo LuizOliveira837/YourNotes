@@ -11,6 +11,14 @@ namespace YourNotes.Persistence.Data.Migrations.Tables
                 .WithColumn("Title").AsAnsiString().NotNullable()
                 .WithColumn("UserId").AsGuid().NotNullable().ForeignKey("FK_Topic_User_Id", "Users", "Id");
 
+            CreateTable("Articles")
+                .WithColumn("TopicId").AsGuid().NotNullable().ForeignKey("FK_Article_Topic_Id", "Topics", "Id")
+                .WithColumn("Title").AsAnsiString(100).NotNullable()
+                .WithColumn("Description").AsAnsiString(100)
+                .WithColumn("PublishOn").AsBoolean().NotNullable();
+
+
+
         }
     }
 }

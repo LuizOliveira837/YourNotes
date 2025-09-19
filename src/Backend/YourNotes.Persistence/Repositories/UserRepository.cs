@@ -19,8 +19,6 @@ namespace YourNotes.Persistence.Repositories
                  .Users.AddAsync(t);
 
             return t.Id;
-
-
         }
 
         public async Task<bool> EmailExistsAsync(string email) => await _context.Users.AsNoTracking().AnyAsync(u => u.Email == email);

@@ -156,4 +156,19 @@
   <data name="USER_WITHOUT_AUTHORIZATION" xml:space="preserve">
     <value>User Without Authorization</value>
   </data>
+  <data name="EMPTY_ARTICLE_TITLE" xml:space="preserve">
+    <value>Article cannot be empty</value>
+  </data>
+  <data name="INVALID_ARTICLE_LENGTH" xml:space="preserve">
+    <value>The article must be at least 10 characters long and at most 100 characters long.</value>
+  </data>
+  <data name="EMPTY_DESCRIPTION" xml:space="preserve">
+    <value>Description cannot be empty</value>
+  </data>
+  <data name="INVALID_DESCRIPTION_LENGTH" xml:space="preserve">
+    <value>The description must be at least 10 characters long and at most 100 characters long.</value>
+  </data>
+  <data name="TOPIC_NOT_EXISTS" xml:space="preserve">
+    <value>Topic not exists</value>
+  </data>
 </root>

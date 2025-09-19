@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using YourNotes.Communication.Responses;
-using YourNotes.Domain.Interfaces.Repositories;
 using YourNotes.Domain.Interfaces.Repositories.User;
 using YourNotes.Domain.Interfaces.Security;
 using YourNotes.Exception;

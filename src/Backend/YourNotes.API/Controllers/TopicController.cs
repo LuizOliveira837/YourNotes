@@ -14,6 +14,7 @@ namespace YourNotes.API.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(ResponseTopicJson), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateTopic([FromBody] RequestTopicJson request, [FromServices] ICreateTopicUseCase useCase)
         {

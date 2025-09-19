@@ -14,8 +14,7 @@ namespace YourNotes.API.Controllers
         public async Task<IActionResult> LoginByEmailAndPassword([FromBody] RequestLoginByEmailAndPassword request,
             [FromServices] ILoginByEmailAndPasswordUseCase useCase)
         {
-           var result =  await useCase.Execute(request);
-
+            var result =  await useCase.Execute(request);
 
             return Ok(result);
         }

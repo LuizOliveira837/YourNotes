@@ -70,6 +70,42 @@ namespace YourNotes.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Article cannot be empty.
+        /// </summary>
+        public static string EMPTY_ARTICLE_TITLE {
+            get {
+                return ResourceManager.GetString("EMPTY_ARTICLE_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Description cannot be empty.
+        /// </summary>
+        public static string EMPTY_DESCRIPTION {
+            get {
+                return ResourceManager.GetString("EMPTY_DESCRIPTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The article must be at least 10 characters long and at most 100 characters long..
+        /// </summary>
+        public static string INVALID_ARTICLE_LENGTH {
+            get {
+                return ResourceManager.GetString("INVALID_ARTICLE_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The description must be at least 10 characters long and at most 100 characters long..
+        /// </summary>
+        public static string INVALID_DESCRIPTION_LENGTH {
+            get {
+                return ResourceManager.GetString("INVALID_DESCRIPTION_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a The email is invalid..
         /// </summary>
         public static string INVALID_EMAIL {
@@ -129,6 +165,15 @@ namespace YourNotes.Exception {
         public static string TOPIC_INVALID {
             get {
                 return ResourceManager.GetString("TOPIC_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Topic not exists.
+        /// </summary>
+        public static string TOPIC_NOT_EXISTS {
+            get {
+                return ResourceManager.GetString("TOPIC_NOT_EXISTS", resourceCulture);
             }
         }
         

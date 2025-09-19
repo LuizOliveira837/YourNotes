@@ -34,6 +34,8 @@ namespace YourNotes.Application.Topic.UpdateTopic
 
             topic.Title = request.NewTitle;
 
+            _writeRepository.Update(topic);
+
             await _uof.Commit();
 
             return new ResponseTopicJson(topic.Id, topic.Title);
@@ -54,6 +56,8 @@ namespace YourNotes.Application.Topic.UpdateTopic
 
                 throw new OnValidationException(error);
             }
+
+            if(await _readRepository.TopicAlreadyExists(request.NewTitle, user.Id)) throw new OnValidationException(YourNotesExceptionResource.TITLE_ALREADY_EXISTS, HttpStatusCode.BadRequest);
 
 
             var topic = await _readRepository.GetTopicByIdAndUserId(request.Id, user.Id)?? throw new OnValidationException(YourNotesExceptionResource.TOPIC_NOT_FOUND, HttpStatusCode.NotFound);

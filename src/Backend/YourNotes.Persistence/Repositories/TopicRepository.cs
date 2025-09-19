@@ -26,7 +26,7 @@ namespace YourNotes.Persistence.Repositories
         {
             var query = await _context
                 .Topics
-                .Where(t=> t.Id == id && t.UserId == userId && t.Active)
+                .Where(t => t.Id == id && t.UserId == userId && t.Active)
                 .FirstOrDefaultAsync();
 
             return query;
@@ -47,10 +47,20 @@ namespace YourNotes.Persistence.Repositories
             return await
                 _context
                 .Topics
+                .AsNoTracking()
                 .AnyAsync(t => t.Title == title && t.UserId == id);
         }
 
-        public void UpdateAsync(Topic topic) => _context.Topics.Update(topic);
+        public async Task<bool> TopicExists(Guid topicId, Guid Userid)
+        {
+            return await
+                _context
+                .Topics
+                .AsNoTracking()
+                .AnyAsync(t => t.Id == topicId && t.UserId == Userid && t.Active);
+        }
+
+        public void Update(Topic topic) => _context.Topics.Update(topic);
 
     }
 }
