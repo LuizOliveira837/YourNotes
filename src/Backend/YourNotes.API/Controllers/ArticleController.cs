@@ -11,10 +11,6 @@ namespace YourNotes.API.Controllers
     [Route("[controller]")]
     public class ArticleController : Controller
     {
-        public ArticleController()
-        {
-
-        }
 
 
         [HttpPost]

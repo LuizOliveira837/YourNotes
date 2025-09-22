@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using YourNotes.Domain.Interfaces.Repositories;
+using YourNotes.Domain.Interfaces.Repositories.Article;
 using YourNotes.Domain.Interfaces.Repositories.Topic;
 using YourNotes.Domain.Interfaces.Repositories.User;
 using YourNotes.Domain.Interfaces.Security;
@@ -65,6 +66,7 @@ namespace YourNotes.Persistence
                 .AddScoped<IUserWriteOnlyRepository, UserRepository>()
                 .AddScoped<ITopicReadOnlyRepository, TopicRepository>()
                 .AddScoped<ITopicWriteOnlyRepository, TopicRepository>()
+                .AddScoped<IArticleWriteOnlyRepository, ArticleRepository>()
                 .AddScoped<IUnitOfWork, UnitOfWork>();
 
         }
