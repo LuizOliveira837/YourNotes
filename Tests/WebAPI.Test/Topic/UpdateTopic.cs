@@ -23,9 +23,9 @@ namespace WebAPI.Test.Topic
         public async Task Sucess()
         {
             //arrange
-            var request = RequestUpdateTopicJsonBuilder.Build(_factory.TitleId);
+            var request = RequestUpdateTopicJsonBuilder.Build(_factory.TopicId);
             var generator = JwtTokenGeneratorBuilder.Build();
-            var token = generator.GenerationToken(_factory.Id);
+            var token = generator.GenerationToken(_factory.UserId);
 
             //act
             _client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
@@ -55,7 +55,7 @@ namespace WebAPI.Test.Topic
             //arrange
             var request = RequestUpdateTopicJsonBuilder.Build();
             var generator = JwtTokenGeneratorBuilder.Build();
-            var token = generator.GenerationToken(_factory.Id);
+            var token = generator.GenerationToken(_factory.UserId);
 
             //act
             _client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);

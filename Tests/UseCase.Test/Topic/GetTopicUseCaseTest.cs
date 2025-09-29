@@ -1,18 +1,17 @@
 ﻿using CommonTestUtilities.Builders;
 using FluentAssertions;
 using YourNotes.Application.Topic.GetTopic;
-using YourNotes.Domain.Interfaces.Repositories.Topic;
 
 namespace UseCases.Test.Topic
 {
     public class GetTopicUseCaseTest
     {
 
-        public GetTopicUseCase CreateUseCase(YourNotes.Domain.Entities.User? user, string? title = "")
+        public GetTopicUseCase CreateUseCase(YourNotes.Domain.Entities.User? user, string? title = "", string description="")
         {
             var mapper = MapperBuilder.Build();
             var loggedUser = new LoggedUserBuilder().Build(user).loggedUser.Object;
-            var readRepository = new TopicReadOnlyRepositoryBuilder(user, title).repository.Object;
+            var readRepository = new TopicReadOnlyRepositoryBuilder(user, title, description).repository.Object;
 
 
             return new GetTopicUseCase(mapper, loggedUser, readRepository);
@@ -24,7 +23,7 @@ namespace UseCases.Test.Topic
             //arrange
             var title = "WORK";
             var user = UserBuilder.Build();
-            var useCase = CreateUseCase(user, title);
+            var useCase = CreateUseCase(user, title, "Breve descrição");
 
             //act
             var result = await useCase.Execute();

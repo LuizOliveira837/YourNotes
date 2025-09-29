@@ -10,7 +10,7 @@ namespace UseCases.Test.Topic
         public UpdateTopicUseCase CreateUseCase(YourNotes.Domain.Entities.User user, YourNotes.Domain.Entities.Topic topic)
         {
             var loggedUser = new LoggedUserBuilder().Build(user).loggedUser.Object;
-            var writeRepository = new TopicWriteOnlyRepositoryBuilder(topic).repository.Object;
+            var writeRepository = new TopicWriteOnlyRepositoryBuilder(topic).GetTopicByIdAndUserId(topic.Id, topic.UserId, topic).repository.Object;
             var readRepository = new TopicReadOnlyRepositoryBuilder(user: user).GetTopicByIdAndUserId(topic.Id, topic.UserId, topic).repository.Object;
             var uof = new UnitOfWorkBuilder().uof.Object;
 
@@ -22,7 +22,7 @@ namespace UseCases.Test.Topic
         {
             //arrange
             var user = UserBuilder.Build();
-            var topic = new YourNotes.Domain.Entities.Topic(user.Id, "Teste");
+            var topic = new YourNotes.Domain.Entities.Topic(user.Id, "Teste", "Breve descrição teste");
             var useCase = CreateUseCase(user, topic);
             var request = RequestUpdateTopicJsonBuilder.Build(topic.Id);
             
@@ -49,7 +49,7 @@ namespace UseCases.Test.Topic
         {
             //arrange
             var user = UserBuilder.Build();
-            var topic = new YourNotes.Domain.Entities.Topic(user.Id, "Teste");
+            var topic = new YourNotes.Domain.Entities.Topic(user.Id, "Teste", "Breve descrição teste");
             var useCase = CreateUseCase(user, topic);
             var request = RequestUpdateTopicJsonBuilder.Build(Guid.NewGuid());
 

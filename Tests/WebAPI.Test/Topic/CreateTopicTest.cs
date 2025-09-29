@@ -29,7 +29,7 @@ namespace WebAPI.Test.Topic
             var request = RequestTopicJsonBuilder.Build();
             var tokenGeneration = JwtTokenGeneratorBuilder.Build();
 
-            var token = tokenGeneration.GenerationToken(_factory.Id);
+            var token = tokenGeneration.GenerationToken(_factory.UserId);
 
             _client
                 .DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
@@ -81,7 +81,7 @@ namespace WebAPI.Test.Topic
 
             var tokenGeneration = JwtTokenGeneratorBuilder.Build();
 
-            var token = tokenGeneration.GenerationToken(_factory.Id);
+            var token = tokenGeneration.GenerationToken(_factory.UserId);
 
             _client
                 .DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
@@ -132,7 +132,7 @@ namespace WebAPI.Test.Topic
 
             var tokenGeneration = JwtTokenGeneratorBuilder.Build();
 
-            var token = tokenGeneration.GenerationToken(_factory.Id);
+            var token = tokenGeneration.GenerationToken(_factory.UserId);
 
             _client
                 .DefaultRequestHeaders.Add("Authorization", "Bearer " + token);

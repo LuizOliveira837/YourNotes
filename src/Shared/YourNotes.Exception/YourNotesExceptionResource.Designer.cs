@@ -151,6 +151,15 @@ namespace YourNotes.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The description can not to be empty.
+        /// </summary>
+        public static string INVALID_TOPIC_DESCRIPTION {
+            get {
+                return ResourceManager.GetString("INVALID_TOPIC_DESCRIPTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a The title already exists.
         /// </summary>
         public static string TITLE_ALREADY_EXISTS {

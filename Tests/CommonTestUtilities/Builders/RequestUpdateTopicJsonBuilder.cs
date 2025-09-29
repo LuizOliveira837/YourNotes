@@ -9,7 +9,8 @@ namespace CommonTestUtilities.Builders
         {
             return new Faker<RequestUpdateTopicJson>()
                 .RuleFor(t => t.Id, f => titleId is null? Guid.NewGuid() : titleId)
-                .RuleFor(t => t.NewTitle, f => f.Lorem.Word());
+                .RuleFor(t => t.NewTitle, f => f.Lorem.Word())
+                .RuleFor(t => t.NewDescription, f => f.Lorem.Sentence());
 
         }
     }

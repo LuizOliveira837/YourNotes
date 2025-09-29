@@ -30,15 +30,14 @@ namespace YourNotes.Application.Topic.UpdateTopic
 
             var topic = await ValidateAndReturnTopic(request, user);
 
-            if (topic.Title == request.NewTitle) return new ResponseTopicJson(topic.Id, topic.Title);
-
             topic.Title = request.NewTitle;
+            topic.Description = request.NewDescription;
 
             _writeRepository.Update(topic);
 
             await _uof.Commit();
 
-            return new ResponseTopicJson(topic.Id, topic.Title);
+            return new ResponseTopicJson(topic.Id, topic.Title, topic.Description);
         }
 
         public async Task<YourNotes.Domain.Entities.Topic> ValidateAndReturnTopic(RequestUpdateTopicJson request, YourNotes.Domain.Entities.User user)
@@ -57,13 +56,18 @@ namespace YourNotes.Application.Topic.UpdateTopic
                 throw new OnValidationException(error);
             }
 
-            if(await _readRepository.TopicAlreadyExists(request.NewTitle, user.Id)) throw new OnValidationException(YourNotesExceptionResource.TITLE_ALREADY_EXISTS, HttpStatusCode.BadRequest);
+            var topic = await _writeRepository.GetTopicByIdAndUserId(request.Id, user.Id) ?? throw new OnValidationException(YourNotesExceptionResource.TOPIC_NOT_FOUND, HttpStatusCode.NotFound);
+
+            var titlesAreTheSame = topic.Title == request.NewTitle;
+
+            if (!titlesAreTheSame)
+            {
+                if (await _readRepository.TopicAlreadyExists(request.NewTitle, user.Id)) throw new OnValidationException(YourNotesExceptionResource.TITLE_ALREADY_EXISTS, HttpStatusCode.BadRequest);
+            }
 
 
-            var topic = await _readRepository.GetTopicByIdAndUserId(request.Id, user.Id)?? throw new OnValidationException(YourNotesExceptionResource.TOPIC_NOT_FOUND, HttpStatusCode.NotFound);
- 
+            return topic;
 
-            return topic!;
         }
     }
 }

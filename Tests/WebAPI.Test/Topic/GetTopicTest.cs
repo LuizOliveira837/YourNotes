@@ -23,7 +23,7 @@ namespace WebAPI.Test.Topic
         {
             //arrange
 
-            var token = JwtTokenGeneratorBuilder.Build().GenerationToken(_factory.Id);
+            var token = JwtTokenGeneratorBuilder.Build().GenerationToken(_factory.UserId);
 
 
             //act

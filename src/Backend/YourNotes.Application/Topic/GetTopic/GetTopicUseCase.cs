@@ -27,7 +27,7 @@ namespace YourNotes.Application.Topic.GetTopic
 
             return new ResponseListTopicJson
             {
-                Topics = topics.Select(t => new ResponseTopicJson(t.Id, t.Title)).ToList()
+                Topics = topics.Select(t => new ResponseTopicJson(t.Id, t.Title, t.Description)).ToList()
             };
 
         }

@@ -8,7 +8,7 @@ namespace CommonTestUtilities.Builders
     {
         public Mock<ITopicReadOnlyRepository> repository;
 
-        public TopicReadOnlyRepositoryBuilder(YourNotes.Domain.Entities.User? user, string? title = "")
+        public TopicReadOnlyRepositoryBuilder(YourNotes.Domain.Entities.User? user, string? title = "", string? description = "")
         {
             repository = new();
 
@@ -18,7 +18,7 @@ namespace CommonTestUtilities.Builders
 
             }
 
-            GetTopics(title, user);
+            GetTopics(description, title, user);
         }
 
         public void TopicAlreadyExists(string title, Guid id)
@@ -38,19 +38,32 @@ namespace CommonTestUtilities.Builders
             return this;
         }
 
-        public void GetTopics(string? title, YourNotes.Domain.Entities.User? user)
+        public void GetTopics(string? description, string? title, YourNotes.Domain.Entities.User? user)
         {
             IList<Topic> topics = new List<Topic>();
 
-            if (!string.IsNullOrEmpty(title) && user is not null)
+            if (!string.IsNullOrEmpty(title) && user is not null && !string.IsNullOrEmpty(description))
             {
-                topics.Add(new Topic(user!.Id, title!));
+                topics.Add(new Topic(user!.Id, title!, description));
 
             }
 
             repository
                   .Setup(t => t.GetTopics(user))
                   .ReturnsAsync(topics);
+        }
+
+        public TopicReadOnlyRepositoryBuilder TopicExists(Guid userId, Topic? topic = null)
+        {
+
+            if (topic is not null)
+            {
+                repository
+                    .Setup(t => t.TopicExists(topic.Id, userId))
+                    .ReturnsAsync(true);
+            }
+
+            return this;
         }
 
     }

@@ -12,6 +12,9 @@ namespace YourNotes.Application.Topic.UpdateTopic
                .NotEmpty().WithMessage(YourNotesExceptionResource.INVALID_TITLE)
                .NotNull().WithMessage(YourNotesExceptionResource.INVALID_TITLE);
 
+            RuleFor(t => t.NewDescription)
+              .NotEmpty().WithMessage(YourNotesExceptionResource.INVALID_TOPIC_DESCRIPTION);
+
         }
     }
 }

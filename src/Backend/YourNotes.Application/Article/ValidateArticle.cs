@@ -10,17 +10,11 @@ namespace YourNotes.Application.Article
         public ValidateArticle()
         {
             RuleFor(a => a.Title)
-                .NotEmpty()
-                .WithMessage(YourNotesExceptionResource.EMPTY_ARTICLE_TITLE)
-                .MaximumLength(100)
-                .MinimumLength(10)
+                .Length(4,15)
                 .WithMessage(YourNotesExceptionResource.INVALID_ARTICLE_LENGTH);
 
             RuleFor(a => a.Description)
-                .NotEmpty()
-                .WithMessage(YourNotesExceptionResource.EMPTY_DESCRIPTION)
-                .MaximumLength(100)
-                .MinimumLength(10)
+                .Length(10,100)
                 .WithMessage(YourNotesExceptionResource.INVALID_DESCRIPTION_LENGTH);
 
         }

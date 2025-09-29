@@ -9,7 +9,8 @@ namespace CommonTestUtilities.Builders
         public static RequestTopicJson Build()
         {
             return new Faker<RequestTopicJson>()
-                .RuleFor(r => r.Title, f => f.Lorem.Word());
+                .RuleFor(r => r.Title, f => f.Lorem.Word())
+                .RuleFor(r => r.Description, f => f.Lorem.Sentence());
         }
     }
 }

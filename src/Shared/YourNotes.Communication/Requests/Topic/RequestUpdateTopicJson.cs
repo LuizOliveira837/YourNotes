@@ -4,5 +4,6 @@
     {
         public Guid Id { get; set; }
         public string NewTitle { get; set; } = string.Empty;
+        public string NewDescription { get; set; } = string.Empty;
     }
 }

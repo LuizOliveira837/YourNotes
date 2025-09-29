@@ -40,7 +40,7 @@ namespace YourNotes.Application.Topic.CreateTopic
 
             await _uof.Commit();
 
-            return new ResponseTopicJson(id, topic.Title);
+            return new ResponseTopicJson(id, topic.Title, topic.Description);
         }
 
         public async Task Validate(RequestTopicJson request, Guid userId)

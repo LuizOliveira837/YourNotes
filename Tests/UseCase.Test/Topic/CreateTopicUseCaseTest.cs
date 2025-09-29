@@ -1,4 +1,5 @@
-﻿using CommonTestUtilities.Builders;
+﻿using Azure.Core;
+using CommonTestUtilities.Builders;
 using FluentAssertions;
 using YourNotes.Application.Topic.CreateTopic;
 using YourNotes.Communication.Requests.Topic;
@@ -10,9 +11,9 @@ namespace UseCases.Test.Topic
     public class CreateTopicUseCaseTest
     {
         public YourNotes.Domain.Entities.Topic topic;
-        public CreateTopicUseCase Build(YourNotes.Domain.Entities.User user, string title = "")
+        public CreateTopicUseCase Build(YourNotes.Domain.Entities.User user, string title = "", string description = "")
         {
-            topic = new YourNotes.Domain.Entities.Topic(user.Id, title);
+            topic = new YourNotes.Domain.Entities.Topic(user.Id, title, description);
             var readRepository = new TopicReadOnlyRepositoryBuilder(user, title).repository.Object;
             var writeRepository = new TopicWriteOnlyRepositoryBuilder(topic).repository.Object;
             var uof = new UnitOfWorkBuilder().uof.Object;
@@ -50,7 +51,7 @@ namespace UseCases.Test.Topic
             //arrange
             var user = UserBuilder.Build();
             var request = RequestTopicJsonBuilder.Build();
-            var useCase = Build(user, request.Title);
+            var useCase = Build(user, request.Title, request.Description);
 
             //act
             var result = async () => await useCase.Execute(request);
@@ -60,7 +61,7 @@ namespace UseCases.Test.Topic
             await (result)
                 .Should().ThrowAsync<OnValidationException>()
                 .Where(e => e.Error == YourNotesExceptionResource.TITLE_ALREADY_EXISTS);
-                
+
 
         }
 
@@ -77,7 +78,7 @@ namespace UseCases.Test.Topic
                 Title = title,
             };
 
-            var useCase = Build(user, title);
+            var useCase = Build(user, title, request.Description);
 
             //act
             var result = async () => await useCase.Execute(request);
@@ -87,6 +88,31 @@ namespace UseCases.Test.Topic
             await (result)
                 .Should().ThrowAsync<OnValidationException>()
                 .Where(e => e.Error == YourNotesExceptionResource.INVALID_TITLE);
+
+
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData("   ")]
+        [InlineData(null)]
+        public async Task ERROR_INVALID_DESCRIPTION(string description)
+        {
+            //arrange
+            var user = UserBuilder.Build();
+            var request = RequestTopicJsonBuilder.Build();
+            request.Description = description;
+
+            var useCase = Build(user, request.Title, request.Description);
+
+            //act
+            var result = async () => await useCase.Execute(request);
+
+            //assert
+
+            await (result)
+                .Should().ThrowAsync<OnValidationException>()
+                .Where(e => e.Error == YourNotesExceptionResource.INVALID_TOPIC_DESCRIPTION);
 
 
         }

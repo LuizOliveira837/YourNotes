@@ -171,4 +171,7 @@
   <data name="TOPIC_NOT_EXISTS" xml:space="preserve">
     <value>Topic not exists</value>
   </data>
+  <data name="INVALID_TOPIC_DESCRIPTION" xml:space="preserve">
+    <value>The description can not to be empty</value>
+  </data>
 </root>

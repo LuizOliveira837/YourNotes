@@ -50,12 +50,12 @@ namespace WebAPI.Test
         {
             get => _user.Password;
         }
-        public Guid Id
+        public Guid UserId
         {
             get => _user.Id;
         }
 
-        public Guid TitleId
+        public Guid TopicId
         {
             get => _topic.Id;
         }
@@ -117,7 +117,7 @@ namespace WebAPI.Test
                    LastName = LastName,
                    Email = Email,
                    Password = PasswordEncrypterBuilder.Build().Encrypter(Password),
-                   Id = Id,
+                   Id = UserId,
                });
 
 

@@ -34,7 +34,7 @@ namespace WebAPI.Test.User
             //ARRANGE
             request = new RequestUpdateUserName(userName);
             var jwtGaneratorBuilder = JwtTokenGeneratorBuilder.Build();
-            var token = jwtGaneratorBuilder.GenerationToken(_factory.Id);
+            var token = jwtGaneratorBuilder.GenerationToken(_factory.UserId);
 
             //ACT
 
@@ -72,7 +72,7 @@ namespace WebAPI.Test.User
             //ARRANGE
             request = new RequestUpdateUserName(requestRegisterUser.UserName);
             var jwtGaneratorBuilder = JwtTokenGeneratorBuilder.Build();
-            var token = jwtGaneratorBuilder.GenerationToken(_factory.Id);
+            var token = jwtGaneratorBuilder.GenerationToken(_factory.UserId);
             await _client.PostAsJsonAsync("user", requestRegisterUser);
 
 

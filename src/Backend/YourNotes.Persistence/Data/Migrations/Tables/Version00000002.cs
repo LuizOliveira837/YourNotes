@@ -9,6 +9,7 @@ namespace YourNotes.Persistence.Data.Migrations.Tables
         {
             CreateTable("Topics")
                 .WithColumn("Title").AsAnsiString().NotNullable()
+                .WithColumn("Description").AsAnsiString(100)
                 .WithColumn("UserId").AsGuid().NotNullable().ForeignKey("FK_Topic_User_Id", "Users", "Id");
 
             CreateTable("Articles")

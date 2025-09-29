@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿ using Microsoft.AspNetCore.Mvc;
 using YourNotes.API.Attributes;
 using YourNotes.Communication.Requests.Article;
 using YourNotes.Communication.Responses.Topic;
@@ -11,7 +11,6 @@ namespace YourNotes.API.Controllers
     [Route("[controller]")]
     public class ArticleController : Controller
     {
-
 
         [HttpPost]
         [ProducesResponseType(typeof(ResponseTopicJson), StatusCodes.Status201Created)]

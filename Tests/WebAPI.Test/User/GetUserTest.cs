@@ -18,7 +18,7 @@ namespace WebAPI.Test.User
             //arrange
             var tokenGeneration = JwtTokenGeneratorBuilder.Build();
 
-            var token = tokenGeneration.GenerationToken(_factory.Id);
+            var token = tokenGeneration.GenerationToken(_factory.UserId);
 
             //act
             _client

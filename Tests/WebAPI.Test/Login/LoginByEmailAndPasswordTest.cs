@@ -48,7 +48,7 @@ namespace WebAPI.Test.Login
             var id = resultAsJson.RootElement.GetProperty("id").GetGuid();
             var token = resultAsJson.RootElement.GetProperty("token").GetProperty("accessToken").ToString();
 
-            id.Should().Be(_factory.Id);
+            id.Should().Be(_factory.UserId);
 
             token.Should().BeOfType<string>();
 

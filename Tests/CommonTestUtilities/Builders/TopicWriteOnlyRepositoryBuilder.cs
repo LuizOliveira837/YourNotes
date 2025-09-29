@@ -1,4 +1,5 @@
 ﻿using Moq;
+using YourNotes.Domain.Entities;
 using YourNotes.Domain.Interfaces.Repositories.Topic;
 
 namespace CommonTestUtilities.Builders
@@ -24,6 +25,14 @@ namespace CommonTestUtilities.Builders
                 .ReturnsAsync(topic.Id);
         }
 
-       
+        public TopicWriteOnlyRepositoryBuilder GetTopicByIdAndUserId(Guid id, Guid userId, Topic topic)
+        {
+            repository
+                .Setup(t => t.GetTopicByIdAndUserId(id, userId))
+                .ReturnsAsync(topic);
+
+            return this;
+        }
+
     }
 }

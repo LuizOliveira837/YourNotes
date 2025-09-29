@@ -42,6 +42,5 @@ namespace YourNotes.Application.Services.Crypt
             return sb.ToString();
 
         }
-
     }
 }

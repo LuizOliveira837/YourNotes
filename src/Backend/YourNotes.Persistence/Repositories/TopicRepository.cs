@@ -22,15 +22,25 @@ namespace YourNotes.Persistence.Repositories
             return topic.Id;
         }
 
-        public async Task<Topic?> GetTopicByIdAndUserId(Guid id, Guid userId)
+        async Task<Topic?> ITopicReadOnlyRepository.GetTopicByIdAndUserId(Guid id, Guid userId)
         {
-            var query = await _context
-                .Topics
+            var query = await GetFullTopics()
+                .AsNoTracking()
                 .Where(t => t.Id == id && t.UserId == userId && t.Active)
                 .FirstOrDefaultAsync();
 
             return query;
         }
+
+        async Task<Topic?> ITopicWriteOnlyRepository.GetTopicByIdAndUserId(Guid id, Guid userId)
+        {
+            var query = await GetFullTopics()
+                .Where(t => t.Id == id && t.UserId == userId && t.Active)
+                .FirstOrDefaultAsync();
+
+            return query;
+        }
+
 
         public async Task<IList<Topic>> GetTopics(User user)
         {
@@ -45,10 +55,17 @@ namespace YourNotes.Persistence.Repositories
         public async Task<bool> TopicAlreadyExists(string title, Guid id)
         {
             return await
-                _context
-                .Topics
+                GetFullTopics()
                 .AsNoTracking()
                 .AnyAsync(t => t.Title == title && t.UserId == id);
+        }
+
+
+        public IQueryable<Topic> GetFullTopics()
+        {
+            return _context
+                .Topics
+                .AsQueryable();
         }
 
         public async Task<bool> TopicExists(Guid topicId, Guid Userid)

@@ -2,7 +2,6 @@
 using YourNotes.Communication.Requests.Login;
 using YourNotes.Communication.Responses;
 using YourNotes.Communication.Responses.User;
-using YourNotes.Domain.Interfaces.Repositories;
 using YourNotes.Domain.Interfaces.Repositories.User;
 using YourNotes.Domain.Interfaces.UseCases;
 using YourNotes.Exception;
@@ -13,14 +12,12 @@ namespace YourNotes.Application.Login.LoginByEmailAndPassword
 {
     public class LoginByEmailAndPasswordUseCase : ILoginByEmailAndPasswordUseCase
     {
-        private readonly IUnitOfWork _uof;
         private readonly PasswordEncrypter _encrypter;
         private readonly JwtTokenGenerator _tokenGenerator;
         private readonly IUserReadOnlyRepository _readOnlyRepository;
 
-        public LoginByEmailAndPasswordUseCase(IUnitOfWork uof, IUserReadOnlyRepository readOnlyRepository, PasswordEncrypter encrypter, JwtTokenGenerator tokenGenerator)
+        public LoginByEmailAndPasswordUseCase(IUserReadOnlyRepository readOnlyRepository, PasswordEncrypter encrypter, JwtTokenGenerator tokenGenerator)
         {
-            _uof = uof;
             _encrypter = encrypter;
             _tokenGenerator = tokenGenerator;
             _readOnlyRepository = readOnlyRepository;
