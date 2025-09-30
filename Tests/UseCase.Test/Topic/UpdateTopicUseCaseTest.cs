@@ -10,7 +10,7 @@ namespace UseCases.Test.Topic
         public UpdateTopicUseCase CreateUseCase(YourNotes.Domain.Entities.User user, YourNotes.Domain.Entities.Topic topic)
         {
             var loggedUser = new LoggedUserBuilder().Build(user).loggedUser.Object;
-            var writeRepository = new TopicWriteOnlyRepositoryBuilder(topic).GetTopicByIdAndUserId(topic.Id, topic.UserId, topic).repository.Object;
+            var writeRepository = new TopicWriteOnlyRepositoryBuilder(topic).GetTopicByIdAndUserId(topic.UserId, topic).repository.Object;
             var readRepository = new TopicReadOnlyRepositoryBuilder(user: user).GetTopicByIdAndUserId(topic.Id, topic.UserId, topic).repository.Object;
             var uof = new UnitOfWorkBuilder().uof.Object;
 

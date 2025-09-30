@@ -18,7 +18,7 @@ namespace YourNotes.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateTopic([FromBody] RequestTopicJson request, [FromServices] ICreateTopicUseCase useCase)
         {
-           var id = await useCase.Execute(request);
+            var id = await useCase.Execute(request);
 
             return Created("", id);
         }
@@ -48,16 +48,16 @@ namespace YourNotes.API.Controllers
             return Ok(response);
         }
 
-        [HttpPut]
-        [ProducesResponseType(typeof(ResponseTopicJson), StatusCodes.Status200OK)]
+        [HttpDelete("{id}")]
+        [ProducesResponseType(typeof(ResponseTopicJson), StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ResponseTopicJson), StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult>
-            Delete([FromBody] RequestUpdateTopicJson request, [FromServices] IUpdateTopicUseCase useCase)
+            Delete([FromRoute] Guid id, [FromServices] IDeleteTopicUseCase useCase)
         {
-            var response = await useCase.Execute(request);
+            await useCase.Execute(id);
 
-            return Ok(response);
+            return NoContent();
         }
 
     }

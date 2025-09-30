@@ -79,5 +79,11 @@ namespace YourNotes.Persistence.Repositories
 
         public void Update(Topic topic) => _context.Topics.Update(topic);
 
+        public void Delete(Topic topic)
+        {
+            _context
+               .Topics
+               .Remove(topic);
+        }
     }
 }

@@ -25,11 +25,14 @@ namespace CommonTestUtilities.Builders
                 .ReturnsAsync(topic.Id);
         }
 
-        public TopicWriteOnlyRepositoryBuilder GetTopicByIdAndUserId(Guid id, Guid userId, Topic topic)
+        public TopicWriteOnlyRepositoryBuilder GetTopicByIdAndUserId(Guid userId, Topic? topic= null)
         {
-            repository
-                .Setup(t => t.GetTopicByIdAndUserId(id, userId))
-                .ReturnsAsync(topic);
+            if (topic is not null)
+            {
+                repository
+                    .Setup(t => t.GetTopicByIdAndUserId(topic.Id, userId))
+                    .ReturnsAsync(topic);
+            }
 
             return this;
         }
