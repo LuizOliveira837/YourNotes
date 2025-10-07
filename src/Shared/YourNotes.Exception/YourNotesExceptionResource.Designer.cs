@@ -61,6 +61,15 @@ namespace YourNotes.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Article not exists.
+        /// </summary>
+        public static string ARTICLE_NOT_EXISTS {
+            get {
+                return ResourceManager.GetString("ARTICLE_NOT_EXISTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a The email already exists.
         /// </summary>
         public static string EMAIL_ALREADY_EXISTS {
@@ -88,11 +97,29 @@ namespace YourNotes.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Invalid article id..
+        /// </summary>
+        public static string INVALID_ARTICLE_ID {
+            get {
+                return ResourceManager.GetString("INVALID_ARTICLE_ID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a The article must be at least 10 characters long and at most 100 characters long..
         /// </summary>
         public static string INVALID_ARTICLE_LENGTH {
             get {
                 return ResourceManager.GetString("INVALID_ARTICLE_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a invalid position.
+        /// </summary>
+        public static string INVALID_CONTENT_POSITION {
+            get {
+                return ResourceManager.GetString("INVALID_CONTENT_POSITION", resourceCulture);
             }
         }
         

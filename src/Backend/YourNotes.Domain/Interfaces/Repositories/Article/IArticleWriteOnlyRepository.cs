@@ -3,5 +3,6 @@
     public interface IArticleWriteOnlyRepository
     {
         public Task CreateAsync(YourNotes.Domain.Entities.Article article);
+        public Task CreateArticleContentAsync(YourNotes.Domain.Entities.Content content);
     }
 }

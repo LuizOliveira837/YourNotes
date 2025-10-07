@@ -174,4 +174,13 @@
   <data name="INVALID_TOPIC_DESCRIPTION" xml:space="preserve">
     <value>The description can not to be empty</value>
   </data>
+  <data name="ARTICLE_NOT_EXISTS" xml:space="preserve">
+    <value>Article not exists</value>
+  </data>
+  <data name="INVALID_CONTENT_POSITION" xml:space="preserve">
+    <value>invalid position</value>
+  </data>
+  <data name="INVALID_ARTICLE_ID" xml:space="preserve">
+    <value>Invalid article id.</value>
+  </data>
 </root>

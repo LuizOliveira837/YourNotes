@@ -2,7 +2,6 @@
 using YourNotes.API.Attributes;
 using YourNotes.Communication.Requests.User;
 using YourNotes.Communication.Responses.User;
-using YourNotes.Domain.Interfaces;
 using YourNotes.Domain.Interfaces.UseCases;
 
 namespace YourNotes.API.Controllers

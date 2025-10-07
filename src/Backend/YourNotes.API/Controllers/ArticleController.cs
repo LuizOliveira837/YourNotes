@@ -24,5 +24,18 @@ namespace YourNotes.API.Controllers
             return Created();
         }
 
+        [HttpPost("content")]
+        [ProducesResponseType(typeof(ResponseTopicJson), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> PostContent([FromBody] RequestContentJson request, [FromServices] ICreateContentUseCase useCase)
+        {
+            Console.WriteLine(request.Markup);
+            await useCase.Execute(request);
+
+            return Created();
+        }
+
     }
 }

@@ -28,7 +28,7 @@ namespace YourNotes.Application.Topic.DeleteTopic
 
             if (topic is null)
             {
-                throw new OnValidationException(YourNotesExceptionResource.TOPIC_NOT_EXISTS, HttpStatusCode.NotFound);
+                throw new OnValidationException(YourNotesExceptionResource.TOPIC_NOT_FOUND, HttpStatusCode.NotFound);
             }
 
             _writeRepository.Delete(topic);

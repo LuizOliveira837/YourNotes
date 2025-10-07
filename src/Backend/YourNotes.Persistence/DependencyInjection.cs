@@ -67,6 +67,7 @@ namespace YourNotes.Persistence
                 .AddScoped<ITopicReadOnlyRepository, TopicRepository>()
                 .AddScoped<ITopicWriteOnlyRepository, TopicRepository>()
                 .AddScoped<IArticleWriteOnlyRepository, ArticleRepository>()
+                .AddScoped<IArticleReadOnlyRepository, ArticleRepository>()
                 .AddScoped<IUnitOfWork, UnitOfWork>();
 
         }

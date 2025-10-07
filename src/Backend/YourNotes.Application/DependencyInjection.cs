@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using YourNotes.Application.Article.CreateArticle;
+using YourNotes.Application.Article.CreateContent;
 using YourNotes.Application.Login.LoginByEmailAndPassword;
 using YourNotes.Application.Services.Crypt;
 using YourNotes.Application.Services.Mapper;
@@ -42,7 +43,10 @@ namespace YourNotes.Application
               .AddScoped<IGetTopicUseCase, GetTopicUseCase>()
               .AddScoped<IUpdateTopicUseCase, UpdateTopicUseCase>()
               .AddScoped<ICreateArticleUseCase, CreateArticleUseCase>()
-              .AddScoped<IDeleteTopicUseCase, DeleteTopicUseCase>();
+              .AddScoped<IDeleteTopicUseCase, DeleteTopicUseCase>()
+              .AddScoped<ICreateContentUseCase, CreateContentUseCase>();
+
+              
 
         }
 

@@ -19,6 +19,7 @@ namespace YourNotes.Application.Services.Mapper
             CreateMap<RequestRegisterUser, Domain.Entities.User>();
             CreateMap<RequestTopicJson, Domain.Entities.Topic>();
             CreateMap<RequestArticleJson, Domain.Entities.Article>();
+            CreateMap<RequestContentJson, Domain.Entities.Content>();
 
         }
 
